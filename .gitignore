@@ -1,1 +1,4 @@
 course
+node_modules
+.env
+.env_sample
