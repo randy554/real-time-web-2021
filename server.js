@@ -22,9 +22,71 @@ io.on("connection", (socket) => {
   // Listen for a user has connected event
   console.log(" a user has connected");
 
+  // Make username available outside .on('chat')
+  let newUserName = "";
+
+  // Listen for chat message event
+  socket.on("chat", (data) => {
+    // Set the new username;
+    newUserName = data.userName;
+
+    // Create variable for .includes()
+    let str = data.userMessage;
+
+    // Check if message includes 'mood' words
+    if (str.includes(":happy")) {
+      // To all connected clients
+      io.emit("chat", {
+        userMessage: data.userMessage,
+        userName: data.userName,
+        moodSet: true,
+        mood: getGif(),
+      });
+    } else if (str.includes(":motivated")) {
+      // To all connected clients
+      io.emit("chat", {
+        userMessage: data.userMessage,
+        userName: data.userName,
+        moodSet: true,
+        mood: getGif(),
+      });
+    } else if (str.includes(":tired")) {
+      // To all connected clients
+      io.emit("chat", {
+        userMessage: data.userMessage,
+        userName: data.userName,
+        moodSet: true,
+        mood: getGif(),
+      });
+    } else if (str.includes(":frustrated")) {
+      // To all connected clients
+      io.emit("chat", {
+        userMessage: data.userMessage,
+        userName: data.userName,
+        moodSet: true,
+        mood: getGif(),
+      });
+    } else {
+      // To all connected clients
+      io.emit("chat", data);
+    }
+
+    console.log("chat: ", data);
+  });
+
+  socket.on("no input", () => {
+    // Send to client who submitted a empty form
+    socket.emit("no input", "Fill in a username & message before submitting");
+    console.log(
+      "%c No name or message input filled!",
+      "color: black; background-color: orange; font-weight: bold;"
+    );
+  });
+
   // Listen for a user has disconnected event
   socket.on("disconnect", () => {
     console.log(" a user has disconnected");
+    io.emit("server message", `${newUserName} has left the chat!`);
   });
 });
 
