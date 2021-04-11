@@ -24,6 +24,9 @@ io.on("connection", (socket) => {
   // Listen for a user has connected event
   console.log(" a user has connected");
 
+  storeGifs();
+  setInterval(storeGifs, 60000);
+
   // Make username available outside .on('chat')
   let newUserName = "";
 
@@ -105,11 +108,13 @@ let getData = async (tag) => {
   let api_endpoint = `https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=g`;
 
   if (gifDB.happy.length > 0) {
+    // Empty gif DB  if not empty
     gifDB.happy.splice(0, 8);
     gifDB.frustrated.splice(0, 8);
     gifDB.motivated.splice(0, 8);
     gifDB.tired.splice(0, 8);
 
+    // Get data from API
     let res = await fetch(api_endpoint);
     let data = await res.json();
 
@@ -122,6 +127,7 @@ let getData = async (tag) => {
     let res4 = await fetch(api_endpoint);
     let data4 = await res4.json();
 
+    // Add data to DB
     gifDB[tag].push(data.data.images.fixed_height.webp);
     gifDB[tag].push(data2.data.images.fixed_height.webp);
     gifDB[tag].push(data3.data.images.fixed_height.webp);
@@ -164,7 +170,7 @@ let getGif = (mood, listNr) => {
 };
 
 app.get("/", (req, res) => {
-  storeGifs();
+  // storeGifs();
   res.render("index");
 });
 
