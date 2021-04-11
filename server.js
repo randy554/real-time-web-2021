@@ -1,12 +1,14 @@
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
+import fetch from "node-fetch";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 2021;
+const api_key = process.env.API_KEY;
 
 // connect express to http port
 const httpServer = createServer(app);
@@ -30,6 +32,8 @@ io.on("connection", (socket) => {
     // Set the new username;
     newUserName = data.userName;
 
+    let nr = Math.floor(Math.random() * 2 + 1);
+
     // Create variable for .includes()
     let str = data.userMessage;
 
@@ -40,7 +44,7 @@ io.on("connection", (socket) => {
         userMessage: data.userMessage,
         userName: data.userName,
         moodSet: true,
-        mood: getGif(),
+        mood: getGif("happy", nr),
       });
     } else if (str.includes(":motivated")) {
       // To all connected clients
@@ -48,7 +52,7 @@ io.on("connection", (socket) => {
         userMessage: data.userMessage,
         userName: data.userName,
         moodSet: true,
-        mood: getGif(),
+        mood: getGif("motivated", nr),
       });
     } else if (str.includes(":tired")) {
       // To all connected clients
@@ -56,7 +60,7 @@ io.on("connection", (socket) => {
         userMessage: data.userMessage,
         userName: data.userName,
         moodSet: true,
-        mood: getGif(),
+        mood: getGif("tired", nr),
       });
     } else if (str.includes(":frustrated")) {
       // To all connected clients
@@ -64,14 +68,14 @@ io.on("connection", (socket) => {
         userMessage: data.userMessage,
         userName: data.userName,
         moodSet: true,
-        mood: getGif(),
+        mood: getGif("frustrated", nr),
       });
     } else {
       // To all connected clients
       io.emit("chat", data);
     }
 
-    console.log("chat: ", data);
+    // console.log("chat: ", data);
   });
 
   socket.on("no input", () => {
@@ -90,7 +94,82 @@ io.on("connection", (socket) => {
   });
 });
 
+let gifDB = {
+  happy: [],
+  motivated: [],
+  frustrated: [],
+  tired: [],
+};
+
+let getData = async (tag) => {
+  let api_endpoint = `https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=g`;
+
+  if (gifDB.happy.length > 0) {
+    gifDB.happy.splice(0, 8);
+    gifDB.frustrated.splice(0, 8);
+    gifDB.motivated.splice(0, 8);
+    gifDB.tired.splice(0, 8);
+
+    let res = await fetch(api_endpoint);
+    let data = await res.json();
+
+    let res2 = await fetch(api_endpoint);
+    let data2 = await res2.json();
+
+    let res3 = await fetch(api_endpoint);
+    let data3 = await res3.json();
+
+    let res4 = await fetch(api_endpoint);
+    let data4 = await res4.json();
+
+    gifDB[tag].push(data.data.images.fixed_height.webp);
+    gifDB[tag].push(data2.data.images.fixed_height.webp);
+    gifDB[tag].push(data3.data.images.fixed_height.webp);
+    gifDB[tag].push(data4.data.images.fixed_height.webp);
+
+    console.log("DB", gifDB);
+  } else {
+    let res = await fetch(api_endpoint);
+    let data = await res.json();
+
+    let res2 = await fetch(api_endpoint);
+    let data2 = await res2.json();
+
+    let res3 = await fetch(api_endpoint);
+    let data3 = await res3.json();
+
+    let res4 = await fetch(api_endpoint);
+    let data4 = await res4.json();
+
+    gifDB[tag].push(data.data.images.fixed_height.webp);
+    gifDB[tag].push(data2.data.images.fixed_height.webp);
+    gifDB[tag].push(data3.data.images.fixed_height.webp);
+    gifDB[tag].push(data4.data.images.fixed_height.webp);
+
+    console.log("DB", gifDB);
+  }
+};
+
+// Get & store the gifs for different moods
+let storeGifs = () => {
+  getData("happy");
+  getData("motivated");
+  getData("frustrated");
+  getData("tired");
+};
+
+// Get a random gif from a specific mood
+let getGif = (mood, listNr) => {
+  return gifDB[mood][listNr];
+};
+
 app.get("/", (req, res) => {
+  storeGifs();
+  res.render("index");
+});
+
+app.get("/ipromise", (req, res) => {
+  storeGifs();
   res.render("index");
 });
 
