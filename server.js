@@ -170,12 +170,6 @@ let getGif = (mood, listNr) => {
 };
 
 app.get("/", (req, res) => {
-  // storeGifs();
-  res.render("index");
-});
-
-app.get("/ipromise", (req, res) => {
-  storeGifs();
   res.render("index");
 });
 
