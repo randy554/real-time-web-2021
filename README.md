@@ -18,7 +18,7 @@
 
 Dit is een real-time chat app die gebouwd is met de [socket.io](https://socket.io/) library.
 Met deze chat app, is het mogelijk om gifjes naar elkaar te sturen a.d.h.v. zogenaamde "mood-words". Dit zijn een reeks
-aantal woorden (met :prefix) waaruit gekozen kan worden. Dit gaat bijv. zo:
+aantal woorden (met :prefix) waaruit gekozen kan worden. Dit gaat bijvoorbeeld zo:
 
 Bericht:
 
