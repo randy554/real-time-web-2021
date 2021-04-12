@@ -56,6 +56,9 @@ Bericht:
 
 ## Data life cycle
 
+![image](https://user-images.githubusercontent.com/57792277/114358413-2f2db100-9b73-11eb-9b6d-45ba85d21cf0.png)
+
+
 ## Bronnen
 
  * [ExpressJS](https://expressjs.com/)
