@@ -1,7 +1,7 @@
 # MOOD Chat app
 
 ## Live demo
-[Live demo](https://a-realtime-chatapp.herokuapp.com/)
+
 
 ## Inhoud
 
