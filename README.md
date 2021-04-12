@@ -63,8 +63,9 @@ Bericht:
 
 Om aan gifjes te kunnen komen maak ik gebruik van de [GIPHY API](https://developers.giphy.com/docs/api#quick-start-guide). Na het aanmaken van een gratis developer account, ontvang je een `KEY` om met de **GIPHY API** aan de slag te kunnen. Via de [Random Endpoint](https://developers.giphy.com/docs/api/endpoint/#random) kun je één random gif ontvangen d.m.v. een `tag`. Dit zijn inclusief de tag, de benodigdheden om een call te doen naar de **Random API Endpoint**:
 
-> `https://api.giphy.com/v1/gifs/random?api_key={API_KEY_HERE}&tag={TAG_HERE}&rating={RATING_HERE}`
-
+```javascript
+`https://api.giphy.com/v1/gifs/random?api_key={API_KEY_HERE}&tag={TAG_HERE}&rating={RATING_HERE}`
+```
 
 * API_KEY_HERE
 De sleutel die je ontvangen hebt bij het maken van je developer account.
