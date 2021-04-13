@@ -97,24 +97,17 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 
 ## API
 
-Om aan gifjes te kunnen komen maak ik gebruik van de [GIPHY API](https://developers.giphy.com/docs/api#quick-start-guide). Na het aanmaken van een gratis developer account, ontvang je een `KEY` om met de **GIPHY API** aan de slag te kunnen. Via de [Random Endpoint](https://developers.giphy.com/docs/api/endpoint/#random) kun je één random gif ontvangen d.m.v. een `tag`. Dit zijn inclusief de tag, de benodigdheden om een call te doen naar de **Random API Endpoint**:
+De app maakt gebruik van de [Trivia API](https://opentdb.com/api_config.php). De response data is <strong>JSON</strong>. Er kan gebruik worden gemaakt van een SESSION TOKEN. Deze zorgt ervoor dat gedurende de sessie alleen maar unieke vragen worden terug gestuurd. De sessie doet 6 uur. Verder kan de API zonder key worden gebruikt. Er is in de documentatie helaas niks te
+vinden over limiet van API gebruik.
 
 ```javascript
-`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY_HERE}&tag=${TAG_HERE}&rating=${RATING_HERE}`
+`https://opentdb.com/api.php?amount=10`
 ```
 
-* API_KEY_HERE
+[![image.png](https://i.postimg.cc/Hx3YmmYP/image.png)](https://postimg.cc/gXXFyf6v)
 
-De sleutel die je ontvangen hebt bij het maken van je developer account.
-
-* TAG_HERE
-
-De tag is het onderwerp waarover jij een geretalteerde gif wil ontvangen.
-
-* RATING_HERE
-
-Door middel van deze parameter kun je filteren op de type content die je wilt ontvangen. Met parameter `G` bijv. ga je voor de meest veilige content op gipy. Zie [hier](https://developers.giphy.com/docs/optional-settings/#rating) de andere content levels op giphy.
-
+#### Omschrijving
+De API biedt de mogelijkheid om tussen de 1 en 50 Trivia vragen te terug te krijgen. Deze vragen kunnen gaan over verschillende categoriën zoals politiek & geschiedenis. Verder kun je de moeilijkheidsgraad van de vragen aanpassen op easy, medium en hard. Ook kan er gekozen worden om multiple choice antwoorden of boolean antwoorden te ontvangen.
 
 
 ## Bronnen
