@@ -72,10 +72,12 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
      
     npm install
 
-    #4. Start server
+> #4. Start server
+
     npm run dev
 
-    #5. Bekijk site
+> #5. Bekijk site
+
     http://localhost:2021
 
 
