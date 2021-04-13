@@ -37,15 +37,16 @@ Spelers krijgen per ronde 9 afbeeldingen te zien. Van de 9 afbeeldingen zijn een
 
 Per ronde krijgt iedere speler een afbeelding met wat gegevens van een voetbalspeler te zien. De overige spelers moeten aan de hand van de omschrijving van de **geselecteerde speler** kunnen raden wie de speler is. Mocht dit niet lukken met de omschrijvingen van de geselecteerde speler binnen een bepaalde tijdbestek, dan wordt er een multiple choice aan antwoorden getoond. De persoon die deze als eerste selecteert wint de ronde. Na x aantal rondes wordt er een winnar gekozen op basis van de meest aantal punten.
 
-
-### QuickTriv
+<details>
+       <summary>Proces</summary>
 
 Ik wist aanvankelijk van mijn brainstormsessie dat ik snelheid als element wilde hebben in mijn concepten. Dit is met mijn drie ideeën denk ik aardig gelukt. Het was achteraf best lastig om een keuze te maken. Ik heb mijn concepten uiteindelijk tijdens de standup aan de rest van groep voorgelegd, om een voorkeur aan te geven. De voorkeur ging voornamelijk naar het concept `HANDSTER`. Hier waren de meeste enthousiast over. Ook heb ik hier tips voor verdere iteraties meegekregen. Nader inzien vind ik dit zelf een goede keuze en zie ik mogelijkheden hierop te door te itereren. 
 
 Na het selecteren van mijn Handster concept, ben ik verder gaan zoeken naar interessante API's. Ik ben hier een aantal API's tegen gekomen voor zowel zinnen als woorden. Langzamerhand begon ik de bijbehorende data toch wel te simpel te vinden. Ik bedacht me toen dat teamgenoot Roy een tip had gegeven om eventueel een quiz API aan het concept toe te voegen. Ik had eerder met een quiz API gewerkt en deze data voelde als een betere aanvulling op mijn concept. Hierbij moest ik wel mijn  huidige **HANDSTER** concept aanpassen. 
 
+</details>
 
-#### Final concept
+### QuickTriv (Final concept)
 
 Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time quiz spel. Twee spelers krijgen vijf random vragen die zij kunnen beantwoorden d.m.v. multiple choice. De persoon die als eerst het correcte antwoord geeft wint de ronde en verdient daarbij een punt. Bij een foutief antwoord gaat het punt naar de andere speler. Er worden vijf rondes gespeeld om tot een winnaar te komen.
 
