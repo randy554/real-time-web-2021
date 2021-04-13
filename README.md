@@ -14,7 +14,7 @@ under construction...
 * [Licentie](#licentie)
 
 
-## Concept
+## Concepten
 
 | **HANDSTER** | **QUICK EYES!** | ## FOOTY-WHO? |
 | :--- | :--- | :--- |
