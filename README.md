@@ -60,13 +60,16 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 ## Installatie
 
  
-   > #1. clone de repo
+> #1. clone de repo
+    
     https://github.com/randy554/real-time-web-2021.git
 
-    #2. Navigeer naar de root van de app
+> #2. Navigeer naar de root van de app 
+
     cd real-time-web-2021
 
-    #3. Installeer de benodigde paketten die in de package.json staan
+> #3. Installeer de benodigde paketten die in de package.json staan
+     
     npm install
 
     #4. Start server
