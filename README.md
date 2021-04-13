@@ -42,6 +42,9 @@ Ik wist aanvankelijk van mijn brainstormsessie dat ik snelheid als element wilde
 
 ### QuickTriv
 
+[![image.png](https://i.postimg.cc/RF4YKKMY/image.png)](https://postimg.cc/Mc3t8cf0)
+
+
 [![20210413-114349.jpg](https://i.postimg.cc/2yHJwM1L/20210413-114349.jpg)](https://postimg.cc/8f6tkyBT)
 
 
