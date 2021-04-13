@@ -16,7 +16,7 @@ under construction...
 
 ## Concepten
 
-| **HANDSTER** | **QUICK EYES!** | ## FOOTY-WHO? |
+| **HANDSTER** | **QUICK EYES!** | **FOOTY-WHO?** |
 | :--- | :--- | :--- |
 | [![20210413-030702.jpg](https://i.postimg.cc/Y0VL8Y4M/20210413-030702.jpg)](https://postimg.cc/sGY2gB9N) | [![20210412-224038.jpg](https://i.postimg.cc/dQSCqP5p/20210412-224038.jpg)](https://postimg.cc/dDr3BXPj) | [![20210412-224021.jpg](https://i.postimg.cc/7hbTgmZK/20210412-224021.jpg)](https://postimg.cc/sGdXzPSW)  |
 
@@ -51,7 +51,7 @@ Na het selecteren van mijn Handster concept, ben ik verder gaan zoeken naar inte
 Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time quiz spel. Twee spelers krijgen vijf random vragen die zij kunnen beantwoorden d.m.v. multiple choice. De persoon die als eerst het correcte antwoord geeft wint de ronde en verdient daarbij een punt. Bij een foutief antwoord gaat het punt naar de andere speler. Er worden vijf rondes gespeeld om tot een winnaar te komen.
 
 
-| **LOGIN weergave** | **SPEL weergave** | ***RESULTAAT weergave** |
+| **Login weergave** | **Spel weergave** | ***Resultaat weergave** |
 | :--- | :--- | :--- |
 | [![image.png](https://i.postimg.cc/RF4YKKMY/image.png)](https://postimg.cc/Mc3t8cf0) | [![20210413-114349.jpg](https://i.postimg.cc/2yHJwM1L/20210413-114349.jpg)](https://postimg.cc/8f6tkyBT) | [![20210413-114516.jpg](https://i.postimg.cc/ydy2JkBP/20210413-114516.jpg)](https://postimg.cc/gXrgQcxX)  |
 |Op deze pagina kan een speler zich aanmelden voor een sessie door een **username & room number** op te geven| Op deze pagina worden de vragen en bijbehorende antwoorden getoond. De Leaderboard (rechts) toont de deelnemende spelers met de bijbehorende punten. Aan de linkerkant kun je de huidige ronde zien. En aan de onderkant van de pagina heb je de antwoordknoppen | De resultaten pagina weergeeft de winnaar van het spel weer. |
