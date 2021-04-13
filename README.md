@@ -108,7 +108,7 @@ De API biedt de mogelijkheid om tussen de 1 en 50 Trivia vragen te terug te krij
 
 **Response data:**
 
-[![image.png](https://i.postimg.cc/Hx3YmmYP/image.png)](https://postimg.cc/gXXFyf6v)
+[![image.png](https://i.postimg.cc/6QJbWGTy/image.png)](https://postimg.cc/DS6P50rT)
 
 
 
