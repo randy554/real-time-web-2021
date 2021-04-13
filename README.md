@@ -1,7 +1,7 @@
-# MOOD Chat app
+# QuickTriv
 
 ## Live demo
-
+under construction...
 
 ## Inhoud
 
@@ -16,9 +16,38 @@
 
 ## Concept
 
-Dit is een real-time chat app die gebouwd is met de [socket.io](https://socket.io/) library.
-Met deze chat app, is het mogelijk om gifjes naar elkaar te sturen a.d.h.v. zogenaamde "mood-words". Dit zijn een reeks
-aantal woorden (met :prefix) waaruit gekozen kan worden. Dit gaat bijvoorbeeld zo:
+##  HANDSTER
+
+Spelers krijgen een woord te zien, de uitdaging is om dit woord correct en zo snel mogelijk over te typen. De speler die als eerst het  woord correct typt verdient een punt. Na x aantal woorden wordt er een winnaar gekozen op basis van de meest aantal punten.
+
+[![20210413-030702.jpg](https://i.postimg.cc/Y0VL8Y4M/20210413-030702.jpg)](https://postimg.cc/sGY2gB9N)
+
+## QUICK EYES!
+
+Spelers krijgen per ronde 9 afbeeldingen te zien. Van de 9 afbeeldingen zijn een aantal afbeeldingen van een bepaalde thema, zoals voetbal. De spelers moeten van deze thema alle afbeeldingen zo snel mogelijk eruit weten te filteren. De speler wie daar het snelst mee is wint de ronde en verdient een punt. Na x aantal rondes wordt er een winnar gekozen op basis van de meest aantal punten.
+
+[![20210412-224038.jpg](https://i.postimg.cc/dQSCqP5p/20210412-224038.jpg)](https://postimg.cc/dDr3BXPj)
+
+## FOOTY-WHO?
+
+Per ronde krijgt iedere speler een afbeelding met wat gegevens van een voetbalspeler te zien. De overige spelers moeten aan de hand van de omschrijving van de **geselecteerde speler** kunnen raden wie de speler is. Mocht dit niet lukken met de omschrijvingen van de geselecteerde speler binnen een bepaalde tijdbestek, dan wordt er een multiple choice aan antwoorden getoond. De persoon die deze als eerste selecteert wint de ronde. Na x aantal rondes wordt er een winnar gekozen op basis van de meest aantal punten.
+
+
+[![20210412-224021.jpg](https://i.postimg.cc/7hbTgmZK/20210412-224021.jpg)](https://postimg.cc/sGdXzPSW) |
+
+
+
+Ik wist aanvankelijk van mijn brainstormsessie dat ik snelheid als element wilde hebben in mijn concepten. Dit is met mijn drie ideeën denk ik aardig gelukt. Het was achteraf best lastig om een keuze te maken. Ik heb mijn concepten uiteindelijk tijdens de standup aan de rest van groep voorgelegd, om een voorkeur aan te geven. De voorkeur ging voornamelijk naar het concept `HANDSTER`. Hier waren de meeste enthousiast over. Ook heb ik hier tips voor verdere iteraties meegekregen. Nader inzien vind ik dit zelf een goede keuze en zie ik mogelijkheden hierop te door te itereren. 
+
+
+### QuickTriv
+
+[![20210413-114349.jpg](https://i.postimg.cc/2yHJwM1L/20210413-114349.jpg)](https://postimg.cc/8f6tkyBT)
+
+
+[![20210413-114516.jpg](https://i.postimg.cc/ydy2JkBP/20210413-114516.jpg)](https://postimg.cc/gXrgQcxX)
+
+
 
 Bericht:
 
