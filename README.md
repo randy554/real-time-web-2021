@@ -100,14 +100,18 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 De app maakt gebruik van de [Trivia API](https://opentdb.com/api_config.php). De response data is <strong>JSON</strong>. Er kan gebruik worden gemaakt van een SESSION TOKEN. Deze zorgt ervoor dat gedurende de sessie alleen maar unieke vragen worden terug gestuurd. De sessie doet 6 uur. Verder kan de API zonder key worden gebruikt. Er is in de documentatie helaas niks te
 vinden over limiet van API gebruik.
 
+De API biedt de mogelijkheid om tussen de 1 en 50 Trivia vragen te terug te krijgen. Deze vragen kunnen gaan over verschillende categoriën zoals politiek & geschiedenis. Verder kun je de moeilijkheidsgraad van de vragen aanpassen op easy, medium en hard. Ook kan er gekozen worden om multiple choice antwoorden of boolean antwoorden te ontvangen.
+
 ```javascript
 `https://opentdb.com/api.php?amount=10`
 ```
 
+**Response data:**
+
 [![image.png](https://i.postimg.cc/Hx3YmmYP/image.png)](https://postimg.cc/gXXFyf6v)
 
-#### Omschrijving
-De API biedt de mogelijkheid om tussen de 1 en 50 Trivia vragen te terug te krijgen. Deze vragen kunnen gaan over verschillende categoriën zoals politiek & geschiedenis. Verder kun je de moeilijkheidsgraad van de vragen aanpassen op easy, medium en hard. Ook kan er gekozen worden om multiple choice antwoorden of boolean antwoorden te ontvangen.
+
+
 
 
 ## Bronnen
