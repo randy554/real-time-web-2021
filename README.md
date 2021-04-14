@@ -8,7 +8,8 @@ under construction...
 * [Live demo](#live-demo)
 * [Concept](#concept)
 * [Installatie](#installatie)
-* [Bericht types](#bericht-types)
+* [Data life cycle](#data-life-cycle)
+* [Real-time events](#real-time-events)
 * [API](#API)
 * [Bronnen](#bronnen)
 * [Licentie](#licentie)
@@ -18,7 +19,7 @@ under construction...
 
 | **HANDSTER** | **QUICK EYES!** | **FOOTY-WHO?** |
 | :--- | :--- | :--- |
-| [![20210413-030702.jpg](https://i.postimg.cc/Y0VL8Y4M/20210413-030702.jpg)](https://postimg.cc/sGY2gB9N) | [![20210412-224038.jpg](https://i.postimg.cc/dQSCqP5p/20210412-224038.jpg)](https://postimg.cc/dDr3BXPj) | [![20210412-224021.jpg](https://i.postimg.cc/7hbTgmZK/20210412-224021.jpg)](https://postimg.cc/sGdXzPSW)  |
+| [![20210413-030702.jpg](https://i.postimg.cc/j53pjQ3H/20210413-030702.jpg)](https://postimg.cc/LYfCCfp5) | [![20210412-224038.jpg](https://i.postimg.cc/GpK0W1kS/20210412-224038.jpg)](https://postimg.cc/jWDkfm3z) | [![20210412-224021.jpg](https://i.postimg.cc/fLb4ZgCW/20210412-224021.jpg)](https://postimg.cc/jWB34cBB) |
 
 
 ##  HANDSTER
@@ -82,7 +83,12 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
     http://localhost:2021
 
 
-## Bericht types
+## Data life cycle
+
+[![Real-time-web-Quick-Triv-Diagram4.png](https://i.postimg.cc/BQCX0KD4/Real-time-web-Quick-Triv-Diagram4.png)](https://postimg.cc/F779b1DB)
+
+
+## Real-time events
 
 #### Client
 * `chat message` verstuur een normale bericht naar andere mensen in de chat.
@@ -92,9 +98,6 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 * `server message` verstuur bericht naar alle andere mensen in de chat dat een persoon de chat heeft verlaten. 
 
 
-## Data life cycle
-
-![image](https://user-images.githubusercontent.com/57792277/114358413-2f2db100-9b73-11eb-9b6d-45ba85d21cf0.png)
 
 ## API
 
@@ -109,7 +112,7 @@ De API biedt de mogelijkheid om tussen de 1 en 50 Trivia vragen te terug te krij
 
 **Response data:**
 
-[![image.png](https://i.postimg.cc/6QJbWGTy/image.png)](https://postimg.cc/DS6P50rT)
+[![trivia-API.png](https://i.postimg.cc/wjWF43jj/trivia-API.png)](https://postimg.cc/nXDvCFmy)
 
 
 
