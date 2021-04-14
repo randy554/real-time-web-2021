@@ -54,7 +54,7 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 | **Login weergave** | **Spel weergave** | ***Resultaat weergave** |
 | :--- | :--- | :--- |
 | [![image.png](https://i.postimg.cc/RF4YKKMY/image.png)](https://postimg.cc/Mc3t8cf0) | [![20210413-114349.jpg](https://i.postimg.cc/2yHJwM1L/20210413-114349.jpg)](https://postimg.cc/8f6tkyBT) | [![20210413-114516.jpg](https://i.postimg.cc/ydy2JkBP/20210413-114516.jpg)](https://postimg.cc/gXrgQcxX)  |
-|Op deze pagina kan een speler zich aanmelden voor een sessie door een **username & room number** op te geven| Op deze pagina worden de vragen en bijbehorende antwoorden getoond. De Leaderboard (rechts) toont de deelnemende spelers met de bijbehorende punten. Aan de linkerkant kun je de huidige ronde zien. En aan de onderkant van de pagina heb je de antwoordknoppen | De resultaten pagina weergeeft de winnaar van het spel weer. |
+|Op deze pagina kan een speler zich aanmelden voor een sessie door een **username & room number** op te geven.| Op deze pagina worden de vragen en bijbehorende antwoorden getoond. De Leaderboard (rechts) toont de deelnemende spelers met de bijbehorende punten. Aan de linkerkant kun je de huidige ronde zien. En aan de onderkant van de pagina heb je de antwoordknoppen. | De resultaten pagina weergeeft de winnaar van het spel weer. |
 
 
 
