@@ -11,62 +11,55 @@ let messages = document.querySelector("#messages"),
 button.addEventListener("click", () => {
   // If username & message fields are filled then send to chat
   if (userName.value !== "" && userMessage.value !== "") {
-    socket.emit("chat", {
-      userMessage: userMessage.value,
+    socket.emit("join room", {
+      id: socket.id,
       userName: userName.value,
-      moodSet: false,
-      mood: false,
+      room: userMessage.value,
     });
 
     // Empty message after submit
-    userMessage.value = "";
+    messages.innerText = "";
   } else {
     // If username or message is empty then notify user via chat
     socket.emit("no input", "No name or message");
+    // socket.emit("no input", "No name or message");
     console.log(
-      "%c No name or message input filled!",
+      "%c No name or message input filled! - ID: " + socket.id,
       "color: black; background-color: orange; font-weight: bold;"
     );
   }
 });
 
 // Listen from server
-socket.on("chat", (data) => {
-  // messages.innerHTML += "<li><strong>" + data.userName + "</strong>: " + data.userMessage + "</li>";
-
-  if (data.moodSet) {
-    messages.innerHTML +=
-      "<li><strong>" +
-      data.userName +
-      "</strong>: " +
-      "<img class='moodGif' src='" +
-      data.mood +
-      "' alt='happy person'> " +
-      data.userMessage +
-      "</li>";
-  } else {
-    messages.innerHTML +=
-      "<li><strong>" +
-      data.userName +
-      "</strong>: " +
-      data.userMessage +
-      "</li>";
-  }
+socket.on("join room", (data) => {
+  console.log(
+    `%c Server: Hi ${data.userName}, u have joined room: ${data.room}`,
+    "color: white; background-color: blue; font-weight: bold;"
+  );
 });
 
 // Listen for server message about no input
 socket.on("no input", (message) => {
-  messages.innerHTML +=
-    "<li class='server'><strong> SERVER: " + "</strong> " + message + "</li>";
+  // messages.innerHTML +=
+  //   "<li class='server'><strong> SERVER: " + "</strong> " + message + "</li>";
 });
 
 // Listen for server message about a user leaving the chat/being disconnected
 socket.on("server message", (message) => {
-  messages.innerHTML +=
-    "<li class='server'><strong> SERVER: " + "</strong> " + message + "</li>";
+  // messages.innerHTML +=
+  //   "<li class='server'><strong> SERVER: " + "</strong> " + message + "</li>";
 
   console.log(
     `%c Server: ${message}`,
     "color: white; background-color: blue; font-weight: bold;"
+  );
+});
+
+socket.on("enter room", (message) => {
+  messages.innerText += message;
+
+  console.log(
+    `%c Server: ${message}`,
+    "color: white; background-color: red; font-weight: bold;"
   );
 });

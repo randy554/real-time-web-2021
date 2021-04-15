@@ -2,3 +2,6 @@ course
 node_modules
 .env
 .env_sample
+views/*copy.ejs
+public/js/*copy.js
+public/css/*copy.css

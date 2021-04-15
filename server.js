@@ -24,61 +24,47 @@ io.on("connection", (socket) => {
   // Listen for a user has connected event
   console.log(" a user has connected");
 
-  storeGifs();
-  setInterval(storeGifs, 60000);
-
-  // Make username available outside .on('chat')
   let newUserName = "";
 
   // Listen for chat message event
-  socket.on("chat", (data) => {
+  socket.on("join room", (data) => {
     // Set the new username;
+
+    console.log("Join room request", data);
+
     newUserName = data.userName;
 
-    let nr = Math.floor(Math.random() * 2 + 1);
+    let room_count = roomDB.filter((game) => {
+      if (game.room == data.room) {
+        return game.room;
+      }
+    });
 
-    // Create variable for .includes()
-    let str = data.userMessage;
-
-    // Check if message includes 'mood' words
-    if (str.includes(":happy")) {
-      // To all connected clients
-      io.emit("chat", {
-        userMessage: data.userMessage,
-        userName: data.userName,
-        moodSet: true,
-        mood: getGif("happy", nr),
+    if (room_count.length == 0) {
+      console.log("Enter room 1st");
+      roomDB.push({
+        room: data.room,
+        userId: data.id,
+        username: data.userName,
       });
-    } else if (str.includes(":motivated")) {
-      // To all connected clients
-      io.emit("chat", {
-        userMessage: data.userMessage,
-        userName: data.userName,
-        moodSet: true,
-        mood: getGif("motivated", nr),
-      });
-    } else if (str.includes(":tired")) {
-      // To all connected clients
-      io.emit("chat", {
-        userMessage: data.userMessage,
-        userName: data.userName,
-        moodSet: true,
-        mood: getGif("tired", nr),
-      });
-    } else if (str.includes(":frustrated")) {
-      // To all connected clients
-      io.emit("chat", {
-        userMessage: data.userMessage,
-        userName: data.userName,
-        moodSet: true,
-        mood: getGif("frustrated", nr),
+    } else if (room_count.length == 1) {
+      console.log("Join room 2nd");
+      roomDB.push({
+        room: data.room,
+        userId: data.id,
+        username: data.userName,
       });
     } else {
-      // To all connected clients
-      io.emit("chat", data);
+      console.log(`No space in room: ${data.room}. Create/join other room`);
+      socket.emit(
+        "enter room",
+        `No space in room: ${data.room}. Create/join other room`
+      );
     }
 
-    // console.log("chat: ", data);
+    console.log("DB status:", roomDB);
+
+    socket.emit("join room", data);
   });
 
   socket.on("no input", () => {
@@ -103,6 +89,8 @@ let gifDB = {
   frustrated: [],
   tired: [],
 };
+
+let roomDB = [];
 
 let getData = async (tag) => {
   let api_endpoint = `https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=g`;
@@ -170,6 +158,10 @@ let getGif = (mood, listNr) => {
 };
 
 app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.get("/play", (req, res) => {
   res.render("index");
 });
 
