@@ -94,6 +94,8 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 #### Client
 * `chat message` verstuur een normale bericht naar andere mensen in de chat.
 * `no input` verstuur een melding naar de server dat je een lege formulier hebt gesubmit.
+* 
+* `Join room` verstuur een melding naar de server dat je een lege formulier hebt gesubmit.
 
 #### Server
 * `server message` verstuur bericht naar alle andere mensen in de chat dat een persoon de chat heeft verlaten. 
