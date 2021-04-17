@@ -44,12 +44,6 @@ socket.on("join room", (data) => {
   );
 });
 
-// Listen for server message about no input
-socket.on("no input", (message) => {
-  // messages.innerHTML +=
-  //   "<li class='server'><strong> SERVER: " + "</strong> " + message + "</li>";
-});
-
 // Listen for server message about a user leaving the chat/being disconnected
 socket.on("server message", (message) => {
   // messages.innerHTML +=

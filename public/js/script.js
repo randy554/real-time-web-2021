@@ -21,12 +21,15 @@ button.addEventListener("click", () => {
     messages.innerText = "";
   } else {
     // If username or message is empty then notify user via chat
-    socket.emit("no input", "No name or message");
+    // socket.emit("no input", "Fill in the username and room field");
     // socket.emit("no input", "No name or message");
     console.log(
-      "%c No name or message input filled! - ID: " + socket.id,
+      "%c No username or room input filled! - ID: " + socket.id,
       "color: black; background-color: orange; font-weight: bold;"
     );
+
+    messages.innerText +=
+      "Fill in the username and room field before submitting";
   }
 });
 
@@ -36,12 +39,6 @@ socket.on("join room", (data) => {
     `%c Server: Hi ${data.userName}, u have joined room: ${data.room}`,
     "color: white; background-color: blue; font-weight: bold;"
   );
-});
-
-// Listen for server message about no input
-socket.on("no input", (message) => {
-  // messages.innerHTML +=
-  //   "<li class='server'><strong> SERVER: " + "</strong> " + message + "</li>";
 });
 
 // Listen for server message about a user leaving the chat/being disconnected

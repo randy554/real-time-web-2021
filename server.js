@@ -58,23 +58,13 @@ io.on("connection", (socket) => {
       console.log(`No space in room: ${data.room}. Create/join other room`);
       socket.emit(
         "enter room",
-        `No space in room: ${data.room}. Create/join other room`
+        `No space in room: ${data.room}. Create/join a other room`
       );
     }
 
     console.log("DB status:", roomDB);
 
     socket.emit("join room", data);
-  });
-
-  // If user did not fill in
-  socket.on("no input", () => {
-    // Send to client who submitted a empty form
-    socket.emit("no input", "Fill in a username & message before submitting");
-    console.log(
-      "%c No name or message input filled!",
-      "color: black; background-color: orange; font-weight: bold;"
-    );
   });
 
   // Listen for a user has disconnected event
