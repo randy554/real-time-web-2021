@@ -7,7 +7,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/play.css" />
     <title>Real-time Chat App - Share your :mood</title>
   </head>
   <body>
@@ -20,25 +20,12 @@
     <h2 class="title">Lets play!</h2>
 
     <div id="input">
-      <input
-        id="name"
-        type="text"
-        placeholder="Username"
-        autocomplete="off"
-        required
-      />
-      <input
-        id="userMessage"
-        type="text"
-        placeholder="Room"
-        autocomplete="off"
-        required
-      />
-
-      <button id="send">Send</button>
+      <button id="sendA">A</button>
+      <button id="sendB">B</button>
+      <button id="sendC">C</button>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/play.js"></script>
   </body>
 </html>

@@ -67,6 +67,7 @@ io.on("connection", (socket) => {
     socket.emit("join room", data);
   });
 
+  // If user did not fill in
   socket.on("no input", () => {
     // Send to client who submitted a empty form
     socket.emit("no input", "Fill in a username & message before submitting");
@@ -83,86 +84,17 @@ io.on("connection", (socket) => {
   });
 });
 
-let gifDB = {
-  happy: [],
-  motivated: [],
-  frustrated: [],
-  tired: [],
-};
-
+// Store room data
 let roomDB = [];
-
-let getData = async (tag) => {
-  let api_endpoint = `https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=g`;
-
-  if (gifDB.happy.length > 0) {
-    // Empty gif DB  if not empty
-    gifDB.happy.splice(0, 8);
-    gifDB.frustrated.splice(0, 8);
-    gifDB.motivated.splice(0, 8);
-    gifDB.tired.splice(0, 8);
-
-    // Get data from API
-    let res = await fetch(api_endpoint);
-    let data = await res.json();
-
-    let res2 = await fetch(api_endpoint);
-    let data2 = await res2.json();
-
-    let res3 = await fetch(api_endpoint);
-    let data3 = await res3.json();
-
-    let res4 = await fetch(api_endpoint);
-    let data4 = await res4.json();
-
-    // Add data to DB
-    gifDB[tag].push(data.data.images.fixed_height.webp);
-    gifDB[tag].push(data2.data.images.fixed_height.webp);
-    gifDB[tag].push(data3.data.images.fixed_height.webp);
-    gifDB[tag].push(data4.data.images.fixed_height.webp);
-
-    console.log("DB", gifDB);
-  } else {
-    let res = await fetch(api_endpoint);
-    let data = await res.json();
-
-    let res2 = await fetch(api_endpoint);
-    let data2 = await res2.json();
-
-    let res3 = await fetch(api_endpoint);
-    let data3 = await res3.json();
-
-    let res4 = await fetch(api_endpoint);
-    let data4 = await res4.json();
-
-    gifDB[tag].push(data.data.images.fixed_height.webp);
-    gifDB[tag].push(data2.data.images.fixed_height.webp);
-    gifDB[tag].push(data3.data.images.fixed_height.webp);
-    gifDB[tag].push(data4.data.images.fixed_height.webp);
-
-    console.log("DB", gifDB);
-  }
-};
-
-// Get & store the gifs for different moods
-let storeGifs = () => {
-  getData("happy");
-  getData("motivated");
-  getData("frustrated");
-  getData("tired");
-};
-
-// Get a random gif from a specific mood
-let getGif = (mood, listNr) => {
-  return gifDB[mood][listNr];
-};
+// Store game data
+let gameStatus = [];
 
 app.get("/", (req, res) => {
   res.render("index");
 });
 
 app.get("/play", (req, res) => {
-  res.render("index");
+  res.render("play");
 });
 
 // Listen on this port
