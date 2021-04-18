@@ -21,8 +21,6 @@ button.addEventListener("click", () => {
     messages.innerText = "";
   } else {
     // If username or message is empty then notify user via chat
-    // socket.emit("no input", "Fill in the username and room field");
-    // socket.emit("no input", "No name or message");
     console.log(
       "%c No username or room input filled! - ID: " + socket.id,
       "color: black; background-color: orange; font-weight: bold;"
@@ -43,9 +41,6 @@ socket.on("join room", (data) => {
 
 // Listen for server message about a user leaving the chat/being disconnected
 socket.on("server message", (message) => {
-  // messages.innerHTML +=
-  //   "<li class='server'><strong> SERVER: " + "</strong> " + message + "</li>";
-
   console.log(
     `%c Server: ${message}`,
     "color: white; background-color: blue; font-weight: bold;"
@@ -60,3 +55,12 @@ socket.on("enter room", (message) => {
     "color: white; background-color: red; font-weight: bold;"
   );
 });
+
+// Remove tekst on page
+let removeMessage = () => {
+  messages.innerText = "";
+};
+
+// Erase error/warning message on page when focus is on these elements
+userName.addEventListener("focus", removeMessage);
+userMessage.addEventListener("focus", removeMessage);
