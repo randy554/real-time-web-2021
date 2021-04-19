@@ -55,6 +55,8 @@ io.on("connection", (socket) => {
         userId: data.id,
         username: data.userName,
       });
+      // Get & store trivia data
+      getTriviaData();
     } else if (room_count.length == 1) {
       console.log("Join room 2nd");
 
@@ -88,10 +90,41 @@ io.on("connection", (socket) => {
   });
 });
 
+// Fetch & return data from an API
+let getData = async (apiEndpoint) => {
+  const response = await fetch(apiEndpoint);
+
+  const data = await response.json();
+  console.log("API 1e", data.results);
+  return data.results;
+};
+
+// Request data from the Trivia API & return this data
+let getTriviaData = () => {
+  // Set up API parameters
+  const questionsAmount = 5;
+  const typeAnswer = "multiple";
+
+  //Build API endpoint
+  const apiEndpoint = `https://opentdb.com/api.php?amount=${questionsAmount}&type=${typeAnswer}`;
+
+  // Get Trivia data & store results in DB
+  getData(apiEndpoint).then((results) => {
+    storeTrivia(results);
+  });
+};
+
 // Store room data
 let roomDB = [];
 // Store game data
 let gameStatus = [];
+// Store trivia data
+let triviaDB = [];
+
+// Store trivia data to DB
+let storeTrivia = (triviaData) => {
+  return (triviaDB = triviaData);
+};
 
 app.get("/", (req, res) => {
   res.render("index");
