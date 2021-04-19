@@ -23,15 +23,15 @@ app.set("views", "views");
 io.on("connection", (socket) => {
   // Listen for a user has connected event
   console.log(" a user has connected");
-
+  socket.broadcast.emit("server message", "a user has connected");
+  // Setup for username
   let newUserName = "";
 
   // Listen for chat message event
   socket.on("join room", (data) => {
-    // Set the new username;
+    console.log("Join room request:", data);
 
-    console.log("Join room request", data);
-
+    // Assign username
     newUserName = data.userName;
 
     let room_count = roomDB.filter((game) => {
@@ -42,6 +42,14 @@ io.on("connection", (socket) => {
 
     if (room_count.length == 0) {
       console.log("Enter room 1st");
+
+      // Join user to room
+      socket.join(data.room);
+      // Announce arrival of new user to other user in room
+      socket
+        .to(data.room)
+        .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+      // Store user data
       roomDB.push({
         room: data.room,
         userId: data.id,
@@ -49,6 +57,14 @@ io.on("connection", (socket) => {
       });
     } else if (room_count.length == 1) {
       console.log("Join room 2nd");
+
+      // Join user to room
+      socket.join(data.room);
+      // Announce arrival of new user to other user in room
+      socket
+        .to(data.room)
+        .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+      // Store user data
       roomDB.push({
         room: data.room,
         userId: data.id,
@@ -63,14 +79,12 @@ io.on("connection", (socket) => {
     }
 
     console.log("DB status:", roomDB);
-
-    socket.emit("join room", data);
   });
 
   // Listen for a user has disconnected event
   socket.on("disconnect", () => {
     console.log(" a user has disconnected");
-    io.emit("server message", `${newUserName} has left the chat!`);
+    socket.broadcast.emit("server message", `${newUserName} has left the chat`);
   });
 });
 

@@ -1,38 +1,33 @@
 # QuickTriv
 
 ## Live demo
+
 under construction...
 
 ## Inhoud
 
-* [Live demo](#live-demo)
-* [Concept](#concept)
-* [Installatie](#installatie)
-* [Data life cycle](#data-life-cycle)
-* [Real-time events](#real-time-events)
-* [API](#API)
-* [Bronnen](#bronnen)
-* [Licentie](#licentie)
-
+- [Live demo](#live-demo)
+- [Concept](#concept)
+- [Installatie](#installatie)
+- [Data life cycle](#data-life-cycle)
+- [Real-time events](#real-time-events)
+- [API](#API)
+- [Bronnen](#bronnen)
+- [Licentie](#licentie)
 
 ## Concepten
 
-| **HANDSTER** | **QUICK EYES!** | **FOOTY-WHO?** |
-| :--- | :--- | :--- |
+| **HANDSTER**                                                                                             | **QUICK EYES!**                                                                                          | **FOOTY-WHO?**                                                                                           |
+| :------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
 | [![20210413-030702.jpg](https://i.postimg.cc/j53pjQ3H/20210413-030702.jpg)](https://postimg.cc/LYfCCfp5) | [![20210412-224038.jpg](https://i.postimg.cc/GpK0W1kS/20210412-224038.jpg)](https://postimg.cc/jWDkfm3z) | [![20210412-224021.jpg](https://i.postimg.cc/fLb4ZgCW/20210412-224021.jpg)](https://postimg.cc/jWB34cBB) |
 
+## HANDSTER
 
-##  HANDSTER
-
-Spelers krijgen een woord te zien, de uitdaging is om dit woord correct en zo snel mogelijk over te typen. De speler die als eerst het  woord correct typt verdient een punt. Na x aantal woorden wordt er een winnaar gekozen op basis van de meest aantal punten.
-
-
+Spelers krijgen een woord te zien, de uitdaging is om dit woord correct en zo snel mogelijk over te typen. De speler die als eerst het woord correct typt verdient een punt. Na x aantal woorden wordt er een winnaar gekozen op basis van de meest aantal punten.
 
 ## QUICK EYES!
 
 Spelers krijgen per ronde 9 afbeeldingen te zien. Van de 9 afbeeldingen zijn een aantal afbeeldingen van een bepaalde thema, zoals voetbal. De spelers moeten van deze thema alle afbeeldingen zo snel mogelijk eruit weten te filteren. De speler wie daar het snelst mee is wint de ronde en verdient een punt. Na x aantal rondes wordt er een winnar gekozen op basis van de meest aantal punten.
-
-
 
 ## FOOTY-WHO?
 
@@ -41,9 +36,9 @@ Per ronde krijgt iedere speler een afbeelding met wat gegevens van een voetbalsp
 <details>
        <summary>Proces</summary>
 
-Ik wist aanvankelijk van mijn brainstormsessie dat ik snelheid als element wilde hebben in mijn concepten. Dit is met mijn drie ideeën denk ik aardig gelukt. Het was achteraf best lastig om een keuze te maken. Ik heb mijn concepten uiteindelijk tijdens de standup aan de rest van groep voorgelegd, om een voorkeur aan te geven. De voorkeur ging voornamelijk naar het concept `HANDSTER`. Hier waren de meeste enthousiast over. Ook heb ik hier tips voor verdere iteraties meegekregen. Nader inzien vind ik dit zelf een goede keuze en zie ik mogelijkheden hierop te door te itereren. 
+Ik wist aanvankelijk van mijn brainstormsessie dat ik snelheid als element wilde hebben in mijn concepten. Dit is met mijn drie ideeën denk ik aardig gelukt. Het was achteraf best lastig om een keuze te maken. Ik heb mijn concepten uiteindelijk tijdens de standup aan de rest van groep voorgelegd, om een voorkeur aan te geven. De voorkeur ging voornamelijk naar het concept `HANDSTER`. Hier waren de meeste enthousiast over. Ook heb ik hier tips voor verdere iteraties meegekregen. Nader inzien vind ik dit zelf een goede keuze en zie ik mogelijkheden hierop te door te itereren.
 
-Na het selecteren van mijn Handster concept, ben ik verder gaan zoeken naar interessante API's. Ik ben hier een aantal API's tegen gekomen voor zowel zinnen als woorden. Langzamerhand begon ik de bijbehorende data toch wel te simpel te vinden. Ik bedacht me toen dat teamgenoot Roy een tip had gegeven om eventueel een quiz API aan het concept toe te voegen. Ik had eerder met een quiz API gewerkt en deze data voelde als een betere aanvulling op mijn concept. Hierbij moest ik wel mijn  huidige **HANDSTER** concept aanpassen. 
+Na het selecteren van mijn Handster concept, ben ik verder gaan zoeken naar interessante API's. Ik ben hier een aantal API's tegen gekomen voor zowel zinnen als woorden. Langzamerhand begon ik de bijbehorende data toch wel te simpel te vinden. Ik bedacht me toen dat teamgenoot Roy een tip had gegeven om eventueel een quiz API aan het concept toe te voegen. Ik had eerder met een quiz API gewerkt en deze data voelde als een betere aanvulling op mijn concept. Hierbij moest ik wel mijn huidige **HANDSTER** concept aanpassen.
 
 </details>
 
@@ -51,19 +46,15 @@ Na het selecteren van mijn Handster concept, ben ik verder gaan zoeken naar inte
 
 Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time quiz spel. Twee spelers krijgen vijf random vragen die zij kunnen beantwoorden d.m.v. multiple choice. De persoon die als eerst het correcte antwoord geeft wint de ronde en verdient daarbij een punt. Bij een foutief antwoord gaat het punt naar de andere speler. Er worden vijf rondes gespeeld om tot een winnaar te komen.
 
-
-| **Login weergave** | **Spel weergave** | ***Resultaat weergave** |
-| :--- | :--- | :--- |
-| [![image.png](https://i.postimg.cc/RF4YKKMY/image.png)](https://postimg.cc/Mc3t8cf0) | [![20210413-114349.jpg](https://i.postimg.cc/2yHJwM1L/20210413-114349.jpg)](https://postimg.cc/8f6tkyBT) | [![20210413-114516.jpg](https://i.postimg.cc/ydy2JkBP/20210413-114516.jpg)](https://postimg.cc/gXrgQcxX)  |
-|Op deze pagina kan een speler zich aanmelden voor een sessie door een **username & room number** op te geven.| Op deze pagina worden de vragen en bijbehorende antwoorden getoond. De Leaderboard (rechts) toont de deelnemende spelers met de bijbehorende punten. Aan de linkerkant kun je de huidige ronde zien. En aan de onderkant van de pagina heb je de antwoordknoppen. | De resultaten pagina weergeeft de winnaar van het spel weer. |
-
-
+| **Login weergave**                                                                                            | **Spel weergave**                                                                                                                                                                                                                                                 | **\*Resultaat weergave**                                                                                 |
+| :------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| [![image.png](https://i.postimg.cc/RF4YKKMY/image.png)](https://postimg.cc/Mc3t8cf0)                          | [![20210413-114349.jpg](https://i.postimg.cc/2yHJwM1L/20210413-114349.jpg)](https://postimg.cc/8f6tkyBT)                                                                                                                                                          | [![20210413-114516.jpg](https://i.postimg.cc/ydy2JkBP/20210413-114516.jpg)](https://postimg.cc/gXrgQcxX) |
+| Op deze pagina kan een speler zich aanmelden voor een sessie door een **username & room number** op te geven. | Op deze pagina worden de vragen en bijbehorende antwoorden getoond. De Leaderboard (rechts) toont de deelnemende spelers met de bijbehorende punten. Aan de linkerkant kun je de huidige ronde zien. En aan de onderkant van de pagina heb je de antwoordknoppen. | De resultaten pagina weergeeft de winnaar van het spel weer.                                             |
 
 ## Installatie
 
- 
 **#1. clone de repo**
-    
+
     https://github.com/randy554/real-time-web-2021.git
 
 **#2. Navigeer naar de root van de app**
@@ -71,7 +62,7 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
     cd real-time-web-2021
 
 **#3. Installeer de benodigde paketten die in de package.json staan**
-     
+
     npm install
 
 **#4. Start server**
@@ -82,11 +73,9 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 
     http://localhost:2021
 
-
 ## Data life cycle
 
 [![Real-time-web-Quick-Triv-Diagram4.png](https://i.postimg.cc/BQCX0KD4/Real-time-web-Quick-Triv-Diagram4.png)](https://postimg.cc/F779b1DB)
-
 
 ## Real-time events
 
@@ -94,11 +83,11 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 #### Client
 * `chat message` verstuur een normale bericht naar andere mensen in de chat.
 * `no input` verstuur een melding naar de server dat je een lege formulier hebt gesubmit.
-* 
+*
 * `Join room` verstuur een melding naar de server dat je een lege formulier hebt gesubmit.
 
 #### Server
-* `server message` verstuur bericht naar alle andere mensen in de chat dat een persoon de chat heeft verlaten. 
+* `server message` verstuur bericht naar alle andere mensen in de chat dat een persoon de chat heeft verlaten.
 
 -->
 
@@ -110,24 +99,18 @@ vinden over limiet van API gebruik.
 De API biedt de mogelijkheid om tussen de 1 en 50 Trivia vragen te terug te krijgen. Deze vragen kunnen gaan over verschillende categoriën zoals politiek & geschiedenis. Verder kun je de moeilijkheidsgraad van de vragen aanpassen op easy, medium en hard. Ook kan er gekozen worden om multiple choice antwoorden of boolean antwoorden te ontvangen.
 
 ```javascript
-`https://opentdb.com/api.php?amount=10`
+`https://opentdb.com/api.php?amount=5&type=multiple`;
 ```
 
 **Response data:**
 
 [![trivia-API.png](https://i.postimg.cc/wjWF43jj/trivia-API.png)](https://postimg.cc/nXDvCFmy)
 
-
-
-
-
 ## Bronnen
 
- * [ExpressJS](https://expressjs.com/)
- * [Socket.io](https://socket.io/get-started/chat/)
- * [Socket.io cheatsheet](https://socket.io/docs/emit-cheatsheet/)
-
-
+- [ExpressJS](https://expressjs.com/)
+- [Socket.io](https://socket.io/get-started/chat/)
+- [Socket.io cheatsheet](https://socket.io/docs/emit-cheatsheet/)
 
 ## Licentie
 
