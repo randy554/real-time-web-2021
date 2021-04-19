@@ -46,9 +46,13 @@ io.on("connection", (socket) => {
       // Join user to room
       socket.join(data.room);
       // Announce arrival of new user to other user in room
-      socket
-        .to(data.room)
-        .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+      // socket
+      //   .to(data.room)
+      //   .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+      socket.emit("enter room", {
+        redirect: true,
+        message: "",
+      });
       // Store user data
       roomDB.push({
         room: data.room,
@@ -63,9 +67,13 @@ io.on("connection", (socket) => {
       // Join user to room
       socket.join(data.room);
       // Announce arrival of new user to other user in room
-      socket
-        .to(data.room)
-        .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+      // socket
+      //   .to(data.room)
+      //   .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+      socket.emit("enter room", {
+        redirect: true,
+        message: "",
+      });
       // Store user data
       roomDB.push({
         room: data.room,
@@ -74,10 +82,10 @@ io.on("connection", (socket) => {
       });
     } else {
       console.log(`No space in room: ${data.room}. Create/join other room`);
-      socket.emit(
-        "enter room",
-        `No space in room: ${data.room}. Create/join a other room`
-      );
+      socket.emit("enter room", {
+        redirect: false,
+        message: `No space in room: ${data.room}. Create/join a other room`,
+      });
     }
 
     console.log("DB status:", roomDB);
@@ -95,7 +103,6 @@ let getData = async (apiEndpoint) => {
   const response = await fetch(apiEndpoint);
 
   const data = await response.json();
-  console.log("API 1e", data.results);
   return data.results;
 };
 

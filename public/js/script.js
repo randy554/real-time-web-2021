@@ -47,13 +47,18 @@ socket.on("server message", (message) => {
   );
 });
 
-socket.on("enter room", (message) => {
-  messages.innerText += message;
-
-  console.log(
-    `%c Server: ${message}`,
-    "color: white; background-color: red; font-weight: bold;"
-  );
+socket.on("enter room", (data) => {
+  if (data.redirect) {
+    // redirect player to play page
+    window.location = "/play";
+  } else {
+    // display message on page
+    messages.innerText += data.message;
+    console.log(
+      `%c Server: ${data.message}`,
+      "color: white; background-color: red; font-weight: bold;"
+    );
+  }
 });
 
 // Remove tekst on page
