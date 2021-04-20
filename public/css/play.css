@@ -22,12 +22,33 @@ body h2 {
   margin-top: 3vh;
 }
 
+#round {
+  background-color: var(--white);
+  flex-grow: 1;
+}
+
+main {
+  display: flex;
+  height: 80vh;
+}
+
+#leaderboard {
+  background-color: var(--white);
+  flex-grow: 1;
+}
+
+#quiz_content {
+  flex-grow: 4;
+}
+
 #input {
   display: flex;
   justify-content: center;
   position: fixed;
-  bottom: 2vh;
+  /* bottom: 2vh; */
   width: 100%;
+  border: 1px solid var(--dark_blue);
+  height: 11vh;
 }
 
 div input {

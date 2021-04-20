@@ -9,6 +9,9 @@ let messages = document.querySelector("#messages"),
   buttonB = document.querySelector("#sendB"),
   buttonC = document.querySelector("#sendC");
 
+// Get quiz
+socket.emit("quiz content", { quizContent: "start" });
+
 // On button click send to server
 buttonA.addEventListener("click", () => {
   console.log(`Button A: ${buttonA.innerText} - ID: ${socket.id}`);

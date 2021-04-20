@@ -91,6 +91,24 @@ io.on("connection", (socket) => {
     console.log("DB status:", roomDB);
   });
 
+  socket.on("quiz content", (gameStatus) => {
+    console.log("Gamestatus", gameStatus.quizContent);
+
+    let question = "";
+    let answers = [];
+
+    if (gameStatus.quizContent == "start") {
+      question = triviaDB[0].question;
+      answers = triviaDB[0].incorrect_answers;
+      console.log("incorrect_answers DB:", answers);
+      answers.pop();
+      console.log("After pop:", answers);
+      answers.push(triviaDB[0].correct_answer);
+      console.log("With correct_answer:", answers);
+    } else {
+    }
+  });
+
   // Listen for a user has disconnected event
   socket.on("disconnect", () => {
     console.log(" a user has disconnected");
@@ -118,6 +136,7 @@ let getTriviaData = () => {
   // Get Trivia data & store results in DB
   getData(apiEndpoint).then((results) => {
     storeTrivia(results);
+    console.log("1E DB: ", triviaDB);
   });
 };
 
