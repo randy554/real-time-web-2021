@@ -7,12 +7,22 @@ let messages = document.querySelector("#messages"),
   userMessage = document.querySelector("#userMessage"),
   button = document.querySelector("#send");
 
+sessEl = document.querySelector("#sessid").value;
+let trimSess = sessEl.trim();
+
+console.log("session id client:", sessEl);
+
 // On button click send to server
 button.addEventListener("click", () => {
   // If username & message fields are filled then send to chat
   if (userName.value !== "" && userMessage.value !== "") {
+    // socket.emit("join room", {
+    //   id: socket.id,
+    //   userName: userName.value,
+    //   room: userMessage.value,
+    // });
     socket.emit("join room", {
-      id: socket.id,
+      id: trimSess,
       userName: userName.value,
       room: userMessage.value,
     });

@@ -5,3 +5,4 @@ node_modules
 views/*copy.ejs
 public/js/*copy.js
 public/css/*copy.css
+server2.js

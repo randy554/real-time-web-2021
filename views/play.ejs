@@ -23,20 +23,16 @@
 
     <main>
       <!-- Round section -->
-      <section id="round">
-        <p>Round 1</p>
-      </section>
+      <section id="round"></section>
 
       <!-- Quiz content -->
       <section id="quiz_content">
-        <h2 class="title">Lets play!</h2>
+        <h2 class="title"></h2>
+        <ul id="question_options"></ul>
       </section>
 
       <!-- Leaderboard section -->
-      <section id="leaderboard">
-        <p>player 1</p>
-        <p>player 2</p>
-      </section>
+      <section id="leaderboard"></section>
     </main>
 
     <!-- Answer options -->
@@ -46,7 +42,9 @@
       <button id="sendC">C</button>
     </div>
 
+    <input type="hidden" name="sess" id="sessid" value="<%- id %> " />
+
     <script src="/socket.io/socket.io.js"></script>
-    <!-- <script src="js/play.js"></script> -->
+    <script src="js/play.js"></script>
   </body>
 </html>

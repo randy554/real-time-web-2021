@@ -9,14 +9,42 @@ let messages = document.querySelector("#messages"),
   buttonB = document.querySelector("#sendB"),
   buttonC = document.querySelector("#sendC");
 
+// SessionId element
+sessEl = document.querySelector("#sessid").value;
+let trimSess = sessEl.trim();
+
+// Round element
+elLeadB = document.querySelector("#leaderboard");
+let elRound = document.querySelector("#round");
+
+// title element
+let title = document.querySelector(".title");
+
+// Answer options
+let answerOptions = document.querySelector("#question_options");
+
 // Get quiz
-socket.emit("quiz content", { quizContent: "start" });
+socket.emit("quiz content", { quizContent: "start", userId: trimSess });
+
+socket.on("quiz content", (quiz) => {
+  console.log("Question:", quiz.question);
+  console.log("User:", quiz.username);
+  console.log("Answers:", quiz.answers);
+
+  elLeadB.innerHTML = `<p>${quiz.username}</p>`;
+  elRound.innerHTML = `<p>Round: ${quiz.round}</p>`;
+  title.innerText = quiz.question;
+
+  quiz.answers.forEach((element) => {
+    answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
+  });
+});
 
 // On button click send to server
 buttonA.addEventListener("click", () => {
   console.log(`Button A: ${buttonA.innerText} - ID: ${socket.id}`);
   socket.emit("send answer", {
-    id: socket.id,
+    userId: trimSess,
     answer: buttonA.innerText,
   });
 });
@@ -25,7 +53,7 @@ buttonA.addEventListener("click", () => {
 buttonB.addEventListener("click", () => {
   console.log(`Button B: ${buttonB.innerText} - ID: ${socket.id}`);
   socket.emit("send answer", {
-    id: socket.id,
+    userId: trimSess,
     answer: buttonB.innerText,
   });
 });
@@ -34,7 +62,7 @@ buttonB.addEventListener("click", () => {
 buttonC.addEventListener("click", () => {
   console.log(`Button C: ${buttonC.innerText} - ID: ${socket.id}`);
   socket.emit("send answer", {
-    id: socket.id,
+    userId: trimSess,
     answer: buttonC.innerText,
   });
 });

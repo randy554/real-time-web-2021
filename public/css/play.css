@@ -138,4 +138,20 @@ h1 > span {
 
 .title {
   font-family: "Roboto", sans-serif;
+  padding-top: 1.5em;
+}
+
+#question_options {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 5em;
+  list-style: none;
+}
+
+#question_options > li {
+  padding: 3em 1.5em;
+  background-color: var(--white);
+  margin: 1em 15em;
+  border-left: 4px solid var(--dark_purple);
 }

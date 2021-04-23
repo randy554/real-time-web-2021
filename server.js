@@ -1,20 +1,50 @@
-import express from "express";
-import path from "path";
-import dotenv from "dotenv";
-import fetch from "node-fetch";
-import { createServer } from "http";
-import { Server } from "socket.io";
-
-dotenv.config();
+// import express from "express";
+// import path from "path";
+// import dotenv from "dotenv";
+// import fetch from "node-fetch";
+// import session from "express-session";
+// import MemoryStore from "memorystore";
+// import { createServer } from "http";
+// import { Server } from "socket.io";
+require("dotenv").config();
+const express = require("express");
 const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
+const path = require("path");
+const session = require("express-session");
+const MemoryStore = require("memoryStore")(session);
+const fetch = require("node-fetch");
+
+// let store = new MemStore({ checkPeriod: 3600000 });
+// dotenv.config();
+// const app = express();
 const port = process.env.PORT || 2021;
 const api_key = process.env.API_KEY;
 
 // connect express to http port
-const httpServer = createServer(app);
-const io = new Server(httpServer);
+// const httpServer = createServer(app);
+// const io = new Server(httpServer);
+let store = new MemoryStore({ checkPeriod: 3600000 });
 
+app.use(
+  session({
+    cookie: { maxAge: 3600000 },
+    store: store,
+    resave: false,
+    saveUninitialized: true,
+    secret: "somesupersmartsecretstring",
+  })
+);
 app.use(express.static(path.resolve("public")));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  // console.log("RDMemStore:", store);
+  next();
+});
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -92,19 +122,59 @@ io.on("connection", (socket) => {
   });
 
   socket.on("quiz content", (gameStatus) => {
-    console.log("Gamestatus", gameStatus.quizContent);
+    console.log("Gamestatus:", gameStatus.quizContent);
+    console.log("User id:", gameStatus.userId);
+
+    let user = roomDB.map((user) => {
+      if (gameStatus.userId == user.userId) {
+        return user;
+      } else {
+        return false;
+      }
+    });
+
+    // console.log("Wat zit er in ROOM:", user);
+
+    let usrRoom = user[0].room;
+    let usrId = user[0].userId;
+    let usrName = user[0].username;
+
+    console.log("Room found 1:", usrRoom);
+    socket.join(usrRoom);
 
     let question = "";
+    let correct_answer = "";
     let answers = [];
 
     if (gameStatus.quizContent == "start") {
+      console.log("DB INHOUD:", triviaDB);
       question = triviaDB[0].question;
+      correct_answer = triviaDB[0].correct_answer;
+      console.log("correct_answers DB:", correct_answer);
       answers = triviaDB[0].incorrect_answers;
       console.log("incorrect_answers DB:", answers);
       answers.pop();
       console.log("After pop:", answers);
       answers.push(triviaDB[0].correct_answer);
       console.log("With correct_answer:", answers);
+
+      io.to(usrRoom).emit("quiz content", {
+        round: 1,
+        question: question,
+        answers: answers,
+        username: usrName,
+      });
+
+      // io.to("ghbase").emit("quiz content", {
+      //   round: 1,
+      //   question: question,
+      //   answers: answers,
+      // });
+      // io.emit("quiz content", {
+      //   round: 1,
+      //   question: question,
+      //   answers: answers,
+      // });
     } else {
     }
   });
@@ -153,14 +223,38 @@ let storeTrivia = (triviaData) => {
 };
 
 app.get("/", (req, res) => {
-  res.render("index");
+  console.log("sess id server:", req.sessionID);
+  req.session.name = "blowfish";
+  res.render("index", { id: req.sessionID });
 });
 
 app.get("/play", (req, res) => {
-  res.render("play");
+  console.log("sess id server /play:", req.sessionID);
+
+  let loggedIn = roomDB.filter((user) => {
+    if (user.userId == req.sessionID) {
+      return user.userId;
+    }
+  });
+
+  if (loggedIn.length > 0) {
+    res.render("play", { id: req.sessionID });
+  } else {
+    res.render("index", { id: req.sessionID });
+  }
+});
+app.post("/test", (req, res) => {
+  req.session.something = "yes";
+  console.log("SESSION_ID:", req.sessionID);
+  console.log("HELE SESSION:", req.session);
+
+  res.sendStatus(200);
 });
 
 // Listen on this port
-httpServer.listen(port, () => {
+// httpServer.listen(port, () => {
+//   console.log(`Open page @ http://localhost:${port}`);
+// });
+http.listen(port, () => {
   console.log(`Open page @ http://localhost:${port}`);
 });
