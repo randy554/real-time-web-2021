@@ -69,7 +69,7 @@ io.on("connection", (socket) => {
         return game.room;
       }
     });
-
+    console.log(room_count);
     if (room_count.length == 0) {
       console.log("Enter room 1st");
 
@@ -79,18 +79,19 @@ io.on("connection", (socket) => {
       // socket
       //   .to(data.room)
       //   .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+      // Get & store trivia data
+      getTriviaData().then(() =>{
       socket.emit("enter room", {
         redirect: true,
         message: "",
       });
+    });
       // Store user data
       roomDB.push({
         room: data.room,
         userId: data.id,
         username: data.userName,
       });
-      // Get & store trivia data
-      getTriviaData();
     } else if (room_count.length == 1) {
       console.log("Join room 2nd");
 
@@ -146,8 +147,8 @@ io.on("connection", (socket) => {
     let correct_answer = "";
     let answers = [];
 
-    if (gameStatus.quizContent == "start") {
-      console.log("DB INHOUD:", triviaDB);
+    console.log("DB INHOUD:", triviaDB);
+    if (gameStatus.quizContent == "start" && triviaDB.length > 0) {
       question = triviaDB[0].question;
       correct_answer = triviaDB[0].correct_answer;
       console.log("correct_answers DB:", correct_answer);
@@ -192,7 +193,7 @@ let getTriviaData = () => {
   const apiEndpoint = `https://opentdb.com/api.php?amount=${questionsAmount}&type=${typeAnswer}`;
 
   // Get Trivia data & store results in DB
-  getData(apiEndpoint).then((results) => {
+  return getData(apiEndpoint).then((results) => {
     storeTrivia(results);
     console.log("1E DB: ", triviaDB);
   });
