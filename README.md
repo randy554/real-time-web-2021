@@ -2,7 +2,7 @@
 
 ## Live demo
 
-under construction...
+[Live](https://quicktriv.herokuapp.com/)
 
 ## Inhoud
 

@@ -4,6 +4,7 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const path = require("path");
+const htmlContent = require("html-entities");
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
 const fetch = require("node-fetch");
@@ -141,7 +142,7 @@ io.on("connection", (socket) => {
 
     console.log("DB INHOUD:", triviaDB);
     if (gameStatus.quizContent == "start" && triviaDB.length > 0) {
-      question = triviaDB[0].question;
+      question = htmlContent.decode(triviaDB[0].question);
       correct_answer = triviaDB[0].correct_answer;
       console.log("correct_answers DB:", correct_answer);
       answers = triviaDB[0].incorrect_answers;

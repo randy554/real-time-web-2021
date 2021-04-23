@@ -22,6 +22,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "html-entities": "^2.3.2",
     "memorystore": "^1.6.6",
     "node-fetch": "^2.6.1",
     "socket.io": "^4.0.1"
