@@ -1,11 +1,3 @@
-// import express from "express";
-// import path from "path";
-// import dotenv from "dotenv";
-// import fetch from "node-fetch";
-// import session from "express-session";
-// import MemoryStore from "memorystore";
-// import { createServer } from "http";
-// import { Server } from "socket.io";
 require("dotenv").config();
 const express = require("express");
 const app = express();
