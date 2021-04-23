@@ -13,7 +13,7 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const path = require("path");
 const session = require("express-session");
-const MemoryStore = require("memoryStore")(session);
+const MemoryStore = require("memorystore")(session);
 const fetch = require("node-fetch");
 
 // let store = new MemStore({ checkPeriod: 3600000 });
@@ -80,12 +80,12 @@ io.on("connection", (socket) => {
       //   .to(data.room)
       //   .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
       // Get & store trivia data
-      getTriviaData().then(() =>{
-      socket.emit("enter room", {
-        redirect: true,
-        message: "",
+      getTriviaData().then(() => {
+        socket.emit("enter room", {
+          redirect: true,
+          message: "",
+        });
       });
-    });
       // Store user data
       roomDB.push({
         room: data.room,
