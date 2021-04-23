@@ -164,18 +164,6 @@ io.on("connection", (socket) => {
         answers: answers,
         username: usrName,
       });
-
-      // io.to("ghbase").emit("quiz content", {
-      //   round: 1,
-      //   question: question,
-      //   answers: answers,
-      // });
-      // io.emit("quiz content", {
-      //   round: 1,
-      //   question: question,
-      //   answers: answers,
-      // });
-    } else {
     }
   });
 

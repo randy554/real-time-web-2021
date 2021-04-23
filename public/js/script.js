@@ -60,7 +60,10 @@ socket.on("server message", (message) => {
 socket.on("enter room", (data) => {
   if (data.redirect) {
     // redirect player to play page
-    window.location = "/play";
+    // window.location = "/play";
+
+    // window.location.pathname = `${window.location.origin}/play`
+    window.location.replace("http://localhost:2021/play");
   } else {
     // display message on page
     messages.innerText += data.message;

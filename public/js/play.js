@@ -38,32 +38,36 @@ socket.on("quiz content", (quiz) => {
   quiz.answers.forEach((element) => {
     answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
   });
+
+  buttonA.value = quiz.answers[0];
+  buttonB.value = quiz.answers[1];
+  buttonC.value = quiz.answers[2];
 });
 
 // On button click send to server
 buttonA.addEventListener("click", () => {
-  console.log(`Button A: ${buttonA.innerText} - ID: ${socket.id}`);
+  console.log(`Button A: ${buttonA.value} - ID: ${trimSess}`);
   socket.emit("send answer", {
     userId: trimSess,
-    answer: buttonA.innerText,
+    answer: buttonA.value,
   });
 });
 
 // On button click send to server
 buttonB.addEventListener("click", () => {
-  console.log(`Button B: ${buttonB.innerText} - ID: ${socket.id}`);
+  console.log(`Button B: ${buttonB.value} - ID: ${trimSess}`);
   socket.emit("send answer", {
     userId: trimSess,
-    answer: buttonB.innerText,
+    answer: buttonB.value,
   });
 });
 
 // On button click send to server
 buttonC.addEventListener("click", () => {
-  console.log(`Button C: ${buttonC.innerText} - ID: ${socket.id}`);
+  console.log(`Button C: ${buttonC.value} - ID: ${trimSess}`);
   socket.emit("send answer", {
     userId: trimSess,
-    answer: buttonC.innerText,
+    answer: buttonC.value,
   });
 });
 
