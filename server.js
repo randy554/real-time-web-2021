@@ -240,3 +240,5 @@ app.post("/test", (req, res) => {
 http.listen(port, () => {
   console.log(`Open page @ http://localhost:${port}`);
 });
+
+async function getUser(params) {}
