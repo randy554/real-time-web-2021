@@ -129,36 +129,75 @@ io.on("connection", (socket) => {
 
     // console.log("Wat zit er in ROOM:", user);
 
-    let usrRoom = user[0].room;
-    let usrId = user[0].userId;
-    let usrName = user[0].username;
+    // getUserInfo(roomDB).then(user => {
 
-    console.log("Room found 1:", usrRoom);
-    socket.join(usrRoom);
+    //   console.log("Wat zit er in ROOM:", user);
 
-    let question = "";
-    let correct_answer = "";
-    let answers = [];
+    // });
 
-    console.log("DB INHOUD:", triviaDB);
-    if (gameStatus.quizContent == "start" && triviaDB.length > 0) {
-      question = htmlContent.decode(triviaDB[0].question);
-      correct_answer = triviaDB[0].correct_answer;
-      console.log("correct_answers DB:", correct_answer);
-      answers = triviaDB[0].incorrect_answers;
-      console.log("incorrect_answers DB:", answers);
-      answers.pop();
-      console.log("After pop:", answers);
-      answers.push(triviaDB[0].correct_answer);
-      console.log("With correct_answer:", answers);
+    if (user[0].username.length > 0) {
+      let usrRoom = user[0].room;
+      let usrId = user[0].userId;
+      let usrName = user[0].username;
 
-      io.to(usrRoom).emit("quiz content", {
-        round: 1,
-        question: question,
-        answers: answers,
-        username: usrName,
-      });
+      console.log("Room found 1:", usrRoom);
+      socket.join(usrRoom);
+
+      let question = "";
+      let correct_answer = "";
+      let answers = [];
+
+      console.log("DB INHOUD:", triviaDB);
+      if (gameStatus.quizContent == "start" && triviaDB.length > 0) {
+        question = htmlContent.decode(triviaDB[0].question);
+        correct_answer = triviaDB[0].correct_answer;
+        console.log("correct_answers DB:", correct_answer);
+        answers = triviaDB[0].incorrect_answers;
+        console.log("incorrect_answers DB:", answers);
+        answers.pop();
+        console.log("After pop:", answers);
+        answers.push(triviaDB[0].correct_answer);
+        console.log("With correct_answer:", answers);
+
+        io.to(usrRoom).emit("quiz content", {
+          round: 1,
+          question: question,
+          answers: answers,
+          username: usrName,
+        });
+      }
     }
+
+    // let usrRoom = user[0].room;
+    // let usrId = user[0].userId;
+    // let usrName = user[0].username;
+
+    // console.log("Room found 1:", usrRoom);
+    // socket.join(usrRoom);
+
+    // let question = "";
+    // let correct_answer = "";
+    // let answers = [];
+
+    // console.log("DB INHOUD:", triviaDB);
+    // if (gameStatus.quizContent == "start" && triviaDB.length > 0) {
+    //   question = htmlContent.decode(triviaDB[0].question);
+    //   correct_answer = triviaDB[0].correct_answer;
+    //   console.log("correct_answers DB:", correct_answer);
+    //   answers = triviaDB[0].incorrect_answers;
+    //   console.log("incorrect_answers DB:", answers);
+    //   answers.pop();
+    //   console.log("After pop:", answers);
+    //   answers.push(triviaDB[0].correct_answer);
+    //   console.log("With correct_answer:", answers);
+
+    //   io.to(usrRoom).emit("quiz content", {
+    //     round: 1,
+    //     question: question,
+    //     answers: answers,
+    //     username: usrName,
+    //   });
+    // }
   });
 
   // Listen for a user has disconnected event
@@ -241,4 +280,18 @@ http.listen(port, () => {
   console.log(`Open page @ http://localhost:${port}`);
 });
 
-async function getUser(params) {}
+async function getUserInfo(db) {
+  console.log("Inside getUser");
+  const findUser = await db.map((user) => {
+    if (gameStatus.userId == user.userId) {
+      console.log("getUser FOUND");
+      return user;
+    } else {
+      console.log("getUser NOT FOUND");
+      return false;
+    }
+  });
+  return findUser;
+}
+
+async function setUserCredentials(p) {}
