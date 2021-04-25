@@ -23,7 +23,7 @@ let title = document.querySelector(".title");
 // Answer options
 let answerOptions = document.querySelector("#question_options");
 
-// Get quiz
+// Get quiz content
 socket.emit("quiz content", { quizContent: "start", userId: trimSess });
 
 socket.on("quiz content", (quiz) => {

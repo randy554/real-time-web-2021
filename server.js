@@ -9,15 +9,9 @@ const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
 const fetch = require("node-fetch");
 
-// let store = new MemStore({ checkPeriod: 3600000 });
-// dotenv.config();
-// const app = express();
 const port = process.env.PORT || 2021;
 const api_key = process.env.API_KEY;
 
-// connect express to http port
-// const httpServer = createServer(app);
-// const io = new Server(httpServer);
 let store = new MemoryStore({ checkPeriod: 3600000 });
 
 app.use(
@@ -35,7 +29,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  // console.log("RDMemStore:", store);
   next();
 });
 
@@ -50,7 +43,7 @@ io.on("connection", (socket) => {
   // Setup for username
   let newUserName = "";
 
-  // Listen for chat message event
+  // Listen for join event
   socket.on("join room", (data) => {
     console.log("Join room request:", data);
 
@@ -115,30 +108,27 @@ io.on("connection", (socket) => {
     console.log("DB status:", roomDB);
   });
 
-  socket.on("quiz content", (gameStatus) => {
-    console.log("Gamestatus:", gameStatus.quizContent);
-    console.log("User id:", gameStatus.userId);
+  socket.on("quiz content", (gameCONTENT) => {
+    console.log("GameCONTENT:", gameCONTENT.quizContent);
+    console.log("User id:", gameCONTENT.userId);
 
-    let user = roomDB.map((user) => {
-      if (gameStatus.userId == user.userId) {
+    console.log("ROOM:", roomDB);
+
+    let userIn = roomDB.filter((user) => {
+      if (gameCONTENT.userId == user.userId) {
         return user;
       } else {
         return false;
       }
     });
 
-    // console.log("Wat zit er in ROOM:", user);
+    console.log("USER OBJECT:", userIn);
+    console.log("USERNAME:", userIn[0].username);
 
-    // getUserInfo(roomDB).then(user => {
-
-    //   console.log("Wat zit er in ROOM:", user);
-
-    // });
-
-    if (user[0].username.length > 0) {
-      let usrRoom = user[0].room;
-      let usrId = user[0].userId;
-      let usrName = user[0].username;
+    if (userIn[0].username.length > 0) {
+      let usrRoom = userIn[0].room;
+      let usrId = userIn[0].userId;
+      let usrName = userIn[0].username;
 
       console.log("Room found 1:", usrRoom);
       socket.join(usrRoom);
@@ -147,8 +137,8 @@ io.on("connection", (socket) => {
       let correct_answer = "";
       let answers = [];
 
-      console.log("DB INHOUD:", triviaDB);
-      if (gameStatus.quizContent == "start" && triviaDB.length > 0) {
+      // console.log("DB INHOUD:", triviaDB);
+      if (gameCONTENT.quizContent == "start" && triviaDB.length > 0) {
         question = htmlContent.decode(triviaDB[0].question);
         correct_answer = triviaDB[0].correct_answer;
         console.log("correct_answers DB:", correct_answer);
@@ -159,6 +149,7 @@ io.on("connection", (socket) => {
         answers.push(triviaDB[0].correct_answer);
         console.log("With correct_answer:", answers);
 
+        console.log("Emit CONTENT NAAR ROOM");
         io.to(usrRoom).emit("quiz content", {
           round: 1,
           question: question,
@@ -167,37 +158,6 @@ io.on("connection", (socket) => {
         });
       }
     }
-
-    // let usrRoom = user[0].room;
-    // let usrId = user[0].userId;
-    // let usrName = user[0].username;
-
-    // console.log("Room found 1:", usrRoom);
-    // socket.join(usrRoom);
-
-    // let question = "";
-    // let correct_answer = "";
-    // let answers = [];
-
-    // console.log("DB INHOUD:", triviaDB);
-    // if (gameStatus.quizContent == "start" && triviaDB.length > 0) {
-    //   question = htmlContent.decode(triviaDB[0].question);
-    //   correct_answer = triviaDB[0].correct_answer;
-    //   console.log("correct_answers DB:", correct_answer);
-    //   answers = triviaDB[0].incorrect_answers;
-    //   console.log("incorrect_answers DB:", answers);
-    //   answers.pop();
-    //   console.log("After pop:", answers);
-    //   answers.push(triviaDB[0].correct_answer);
-    //   console.log("With correct_answer:", answers);
-
-    //   io.to(usrRoom).emit("quiz content", {
-    //     round: 1,
-    //     question: question,
-    //     answers: answers,
-    //     username: usrName,
-    //   });
-    // }
   });
 
   // Listen for a user has disconnected event
@@ -264,34 +224,7 @@ app.get("/play", (req, res) => {
     res.render("index", { id: req.sessionID });
   }
 });
-app.post("/test", (req, res) => {
-  req.session.something = "yes";
-  console.log("SESSION_ID:", req.sessionID);
-  console.log("HELE SESSION:", req.session);
 
-  res.sendStatus(200);
-});
-
-// Listen on this port
-// httpServer.listen(port, () => {
-//   console.log(`Open page @ http://localhost:${port}`);
-// });
 http.listen(port, () => {
   console.log(`Open page @ http://localhost:${port}`);
 });
-
-async function getUserInfo(db) {
-  console.log("Inside getUser");
-  const findUser = await db.map((user) => {
-    if (gameStatus.userId == user.userId) {
-      console.log("getUser FOUND");
-      return user;
-    } else {
-      console.log("getUser NOT FOUND");
-      return false;
-    }
-  });
-  return findUser;
-}
-
-async function setUserCredentials(p) {}
