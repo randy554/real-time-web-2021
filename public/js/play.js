@@ -31,13 +31,24 @@ socket.on("quiz content", (quiz) => {
   console.log("User:", quiz.username);
   console.log("Answers:", quiz.answers);
 
-  elLeadB.innerHTML = `<p>${quiz.username}</p>`;
+  console.log("Username waarde:", elLeadB.value);
+  elLeadB.insertAdjacentHTML("beforeend", `<p>${quiz.username}</p>`);
+
   elRound.innerHTML = `<p>Round: ${quiz.round}</p>`;
   title.innerText = quiz.question;
 
-  quiz.answers.forEach((element) => {
-    answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
-  });
+  if (answerOptions.innerHTML != "") {
+    console.log("answer options 1:", answerOptions.innerHTML);
+    answerOptions.innerHTML = "";
+    quiz.answers.forEach((element) => {
+      answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
+    });
+  } else {
+    console.log("answer options 2:", answerOptions.innerHTML);
+    quiz.answers.forEach((element) => {
+      answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
+    });
+  }
 
   buttonA.value = quiz.answers[0];
   buttonB.value = quiz.answers[1];
