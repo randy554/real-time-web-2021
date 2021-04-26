@@ -31,8 +31,27 @@ socket.on("quiz content", (quiz) => {
   console.log("User:", quiz.username);
   console.log("Answers:", quiz.answers);
 
+  // show player names
   console.log("Username waarde:", elLeadB.value);
-  elLeadB.insertAdjacentHTML("beforeend", `<p>${quiz.username}</p>`);
+  // elLeadB.insertAdjacentHTML("beforeend", `<p>${quiz.username}</p>`);
+
+  if (elLeadB.innerHTML != "") {
+    elLeadB.innerHTML = "";
+
+    quiz.playerNames.forEach((player) => {
+      console.log("players:", player);
+      if (player != "") {
+        elLeadB.insertAdjacentHTML("beforeend", `<p>${player}</p>`);
+      }
+    });
+  } else {
+    quiz.playerNames.forEach((player) => {
+      console.log("players:", player);
+      if (player != "") {
+        elLeadB.insertAdjacentHTML("beforeend", `<p>${player}</p>`);
+      }
+    });
+  }
 
   elRound.innerHTML = `<p>Round: ${quiz.round}</p>`;
   title.innerText = quiz.question;

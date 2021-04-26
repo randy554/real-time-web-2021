@@ -133,6 +133,121 @@ io.on("connection", (socket) => {
       console.log("Room found 1:", usrRoom);
       socket.join(usrRoom);
 
+      // 1. --------------------------
+
+      // is gameStatus database leeg?
+      //  dan ben je de eerste speler
+      /* vul dan jouw:
+      
+      , - room(ID), 
+      - ronde,
+      - naam
+      - score 
+      
+      in een gamestatus set
+      
+      */
+      // 2. --------------------------
+
+      //  als database niet leeg is
+      // check aan de hand van room name
+      // of er een gamestatus set beschikbaar is dmv van filter & .length
+      // nee? herhaal stap: 1.
+      // ja? Je bent player 2.
+      // voer stap 1 uit voor player 2:
+      /* vul dan jouw:
+     
+     , - room(ID), 
+     - ronde,
+     - naam
+     - score 
+     
+     in een gamestatus set
+     
+     */
+
+      let finalStatus = [];
+
+      if (gameStatus.length < 1) {
+        console.log("GAME STATUS DB LEEG:", gameStatus.length);
+        gameStatus.push({
+          room: usrRoom,
+          round: 1,
+          playerName1: usrName,
+          player1Score: 0,
+          playerName2: "",
+          player2Score: 0,
+        });
+
+        finalStatus = gameStatus.map((status) => {
+          if (status.room == usrRoom) {
+            return status;
+          }
+        });
+      } else {
+        // check if user room exist in db
+        let theRoom = gameStatus.filter((room) => {
+          if (usrRoom == room.room) {
+            return room;
+          }
+        });
+
+        if (theRoom.length < 1) {
+          console.log("GAME STATUS ROOM LEEG:", gameStatus.length);
+          console.log("GAME ROOM STATUS OBJECT:", gameStatus);
+          gameStatus.push({
+            room: usrRoom,
+            round: 1,
+            playerName1: usrName,
+            player1Score: 0,
+            playerName2: "",
+            player2Score: 0,
+          });
+
+          finalStatus = gameStatus.map((status) => {
+            if (status.room == usrRoom) {
+              return status;
+            }
+          });
+        } else {
+          console.log("GAME STATUS ROOM BESTAAT:", theRoom.length);
+          console.log("GAME ROOM STATUS OBJECT:", theRoom);
+
+          // gameStatus.forEach((status) => {
+          //   if (status.room == usrRoom) {
+          //     status.playerName2 = usrName;
+          //   }
+          // });
+
+          finalStatus = gameStatus.map((status) => {
+            if (status.room == usrRoom) {
+              status.playerName2 = usrName;
+              return status;
+            }
+          });
+
+          console.log("FINAL GAME ROOM STATUS:", finalStatus);
+        }
+      }
+      console.log("ERBUITEN? :", finalStatus);
+
+      console.log("FINAL GAME DB STATUS:", gameStatus);
+
+      // 3. --------------------------
+
+      // Haal aan de hand van de room de gamestatus van
+      // speler 1 & 2 naarvoren:
+      /*
+
+      , - room(ID), 
+      - ronde,
+      - playerNaam1
+      - playerScore1 
+      - playerNaam2
+      - playerScore2 
+      
+      */
+
       let question = "";
       let correct_answer = "";
       let answers = [];
@@ -151,10 +266,15 @@ io.on("connection", (socket) => {
 
         console.log("Emit CONTENT NAAR ROOM");
         io.to(usrRoom).emit("quiz content", {
-          round: 1,
+          round: finalStatus[0].round,
           question: question,
           answers: answers,
           username: usrName,
+          playerNames: [finalStatus[0].playerName1, finalStatus[0].playerName2],
+          playerScore: [
+            finalStatus[0].player1Score,
+            finalStatus[0].player2Score,
+          ],
         });
       }
     }
