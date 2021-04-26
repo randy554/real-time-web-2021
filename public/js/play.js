@@ -59,13 +59,45 @@ socket.on("quiz content", (quiz) => {
   if (answerOptions.innerHTML != "") {
     console.log("answer options 1:", answerOptions.innerHTML);
     answerOptions.innerHTML = "";
-    quiz.answers.forEach((element) => {
-      answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
+    quiz.answers.forEach((element, i) => {
+      if (i === 0) {
+        answerOptions.insertAdjacentHTML(
+          "beforeend",
+          `<li><strong>A.</strong> ${element}</li>`
+        );
+      } else if (i === 1) {
+        answerOptions.insertAdjacentHTML(
+          "beforeend",
+          `<li><strong>B.</strong> ${element}</li>`
+        );
+      } else if (i === 2) {
+        answerOptions.insertAdjacentHTML(
+          "beforeend",
+          `<li><strong>C.</strong> ${element}</li>`
+        );
+      }
+      // answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
     });
   } else {
     console.log("answer options 2:", answerOptions.innerHTML);
-    quiz.answers.forEach((element) => {
-      answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
+    quiz.answers.forEach((element, i) => {
+      if (i === 0) {
+        answerOptions.insertAdjacentHTML(
+          "beforeend",
+          `<li><strong>A.</strong> ${element}</li>`
+        );
+      } else if (i === 1) {
+        answerOptions.insertAdjacentHTML(
+          "beforeend",
+          `<li><strong>B.</strong> ${element}</li>`
+        );
+      } else if (i === 2) {
+        answerOptions.insertAdjacentHTML(
+          "beforeend",
+          `<li><strong>C.</strong> ${element}</li>`
+        );
+      }
+      // answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
     });
   }
 
@@ -76,27 +108,36 @@ socket.on("quiz content", (quiz) => {
 
 // On button click send to server
 buttonA.addEventListener("click", () => {
-  console.log(`Button A: ${buttonA.value} - ID: ${trimSess}`);
+  console.log(
+    `Button A: ${buttonA.value} - ID: ${trimSess} - Name: ${userName}`
+  );
   socket.emit("send answer", {
     userId: trimSess,
+    username: userName,
     answer: buttonA.value,
   });
 });
 
 // On button click send to server
 buttonB.addEventListener("click", () => {
-  console.log(`Button B: ${buttonB.value} - ID: ${trimSess}`);
+  console.log(
+    `Button B: ${buttonB.value} - ID: ${trimSess} - Name: ${userName}`
+  );
   socket.emit("send answer", {
     userId: trimSess,
+    username: userName,
     answer: buttonB.value,
   });
 });
 
 // On button click send to server
 buttonC.addEventListener("click", () => {
-  console.log(`Button C: ${buttonC.value} - ID: ${trimSess}`);
+  console.log(
+    `Button C: ${buttonC.value} - ID: ${trimSess} - Name: ${userName}`
+  );
   socket.emit("send answer", {
     userId: trimSess,
+    username: userName,
     answer: buttonC.value,
   });
 });

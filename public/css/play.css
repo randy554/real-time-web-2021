@@ -25,6 +25,7 @@ body h2 {
 #round {
   background-color: var(--white);
   flex-grow: 1;
+  box-shadow: 5px 1px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 main {
@@ -35,6 +36,7 @@ main {
 #leaderboard {
   background-color: var(--white);
   flex-grow: 1;
+  box-shadow: -5px -1px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 #quiz_content {
