@@ -9,6 +9,8 @@ let messages = document.querySelector("#messages"),
   buttonB = document.querySelector("#sendB"),
   buttonC = document.querySelector("#sendC");
 
+let playerNm = "";
+
 // SessionId element
 sessEl = document.querySelector("#sessid").value;
 let trimSess = sessEl.trim();
@@ -30,6 +32,7 @@ socket.on("quiz content", (quiz) => {
   console.log("Question:", quiz.question);
   console.log("User:", quiz.username);
   console.log("Answers:", quiz.answers);
+  // playerNm = quiz.username;
 
   // show player names
   console.log("Username waarde:", elLeadB.value);
@@ -76,7 +79,6 @@ socket.on("quiz content", (quiz) => {
           `<li><strong>C.</strong> ${element}</li>`
         );
       }
-      // answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
     });
   } else {
     console.log("answer options 2:", answerOptions.innerHTML);
@@ -97,7 +99,6 @@ socket.on("quiz content", (quiz) => {
           `<li><strong>C.</strong> ${element}</li>`
         );
       }
-      // answerOptions.insertAdjacentHTML("beforeend", `<li>${element}</li>`);
     });
   }
 
@@ -106,14 +107,18 @@ socket.on("quiz content", (quiz) => {
   buttonC.value = quiz.answers[2];
 });
 
+socket.on("profile", (userprofile) => {
+  playerNm = userprofile.username;
+});
+
 // On button click send to server
 buttonA.addEventListener("click", () => {
   console.log(
-    `Button A: ${buttonA.value} - ID: ${trimSess} - Name: ${userName}`
+    `Button A: ${buttonA.value} - ID: ${trimSess} - Name: ${playerNm}`
   );
   socket.emit("send answer", {
     userId: trimSess,
-    username: userName,
+    username: playerNm,
     answer: buttonA.value,
   });
 });
@@ -121,11 +126,11 @@ buttonA.addEventListener("click", () => {
 // On button click send to server
 buttonB.addEventListener("click", () => {
   console.log(
-    `Button B: ${buttonB.value} - ID: ${trimSess} - Name: ${userName}`
+    `Button B: ${buttonB.value} - ID: ${trimSess} - Name: ${playerNm}`
   );
   socket.emit("send answer", {
     userId: trimSess,
-    username: userName,
+    username: playerNm,
     answer: buttonB.value,
   });
 });
@@ -133,11 +138,11 @@ buttonB.addEventListener("click", () => {
 // On button click send to server
 buttonC.addEventListener("click", () => {
   console.log(
-    `Button C: ${buttonC.value} - ID: ${trimSess} - Name: ${userName}`
+    `Button C: ${buttonC.value} - ID: ${trimSess} - Name: ${playerNm}`
   );
   socket.emit("send answer", {
     userId: trimSess,
-    username: userName,
+    username: playerNm,
     answer: buttonC.value,
   });
 });

@@ -8,6 +8,7 @@ const htmlContent = require("html-entities");
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
 const fetch = require("node-fetch");
+const { on } = require("events");
 
 const port = process.env.PORT || 2021;
 const api_key = process.env.API_KEY;
@@ -276,8 +277,17 @@ io.on("connection", (socket) => {
             finalStatus[0].player2Score,
           ],
         });
+
+        socket.emit("profile", {
+          username: usrName,
+        });
       }
     }
+  });
+
+  socket.on("send answer", (answers) => {
+    console.log("User:", answers.username);
+    console.log("Antwoord:", answers.answer);
   });
 
   // Listen for a user has disconnected event
