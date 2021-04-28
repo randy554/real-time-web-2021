@@ -122,7 +122,7 @@ socket.on("profile", (userprofile) => {
 // On button click send to server
 buttonA.addEventListener("click", () => {
   console.log(
-    `Button A: ${buttonA.value} - ID: ${trimSess} - Name: ${playerNm}`
+    `Button A: ${buttonA.value} - Round: ${round} - Name: ${playerNm}`
   );
   socket.emit("send answer", {
     userId: trimSess,
@@ -135,7 +135,7 @@ buttonA.addEventListener("click", () => {
 // On button click send to server
 buttonB.addEventListener("click", () => {
   console.log(
-    `Button B: ${buttonB.value} - ID: ${trimSess} - Name: ${playerNm}`
+    `Button B: ${buttonB.value} - Round: ${round} - Name: ${playerNm}`
   );
   socket.emit("send answer", {
     userId: trimSess,
@@ -148,7 +148,7 @@ buttonB.addEventListener("click", () => {
 // On button click send to server
 buttonC.addEventListener("click", () => {
   console.log(
-    `Button C: ${buttonC.value} - ID: ${trimSess} - Name: ${playerNm}`
+    `Button C: ${buttonC.value} - Round: ${round} - Name: ${playerNm}`
   );
   socket.emit("send answer", {
     userId: trimSess,
@@ -156,6 +156,15 @@ buttonC.addEventListener("click", () => {
     round: round,
     answer: buttonC.value,
   });
+});
+
+// Present the results
+socket.on("quiz result", (result) => {
+  console.log(`After: ${result.round} rounds`);
+  console.log(`WINNER: ${result.winner}`);
+  console.log(`========= POINTS =========`);
+  console.log(`${result.playerNames[0]}:  ${result.playerScore[0]}`);
+  console.log(`${result.playerNames[1]}:  ${result.playerScore[1]}`);
 });
 
 // Listen from server

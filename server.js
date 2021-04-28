@@ -24,6 +24,7 @@ let usrId = "";
 let usrName = "";
 
 let nextContentKey = "";
+let correctAnswer = "";
 
 let store = new MemoryStore({ checkPeriod: 3600000 });
 
@@ -307,10 +308,6 @@ io.on("connection", (socket) => {
     console.log(
       "NEXT =========================================================="
     );
-    // if (contentKey != 0) {
-    //   contentKey++;
-    // }
-    // form answer options
     console.log("DE KEY", contentKey);
     answers = triviaDB[contentKey].incorrect_answers;
     answers.pop();
@@ -324,6 +321,23 @@ io.on("connection", (socket) => {
       question: htmlContent.decode(triviaDB[contentKey].question),
       answers: answers,
       username: usrName,
+      playerNames: [finalStatus[0].playerName1, finalStatus[0].playerName2],
+      playerScore: [finalStatus[0].player1Score, finalStatus[0].player2Score],
+    });
+  }
+
+  function showResults() {
+    let winner = "";
+
+    if (finalStatus[0].player1Score > finalStatus[0].player2Score) {
+      winner = finalStatus[0].playerNames;
+    } else {
+      winner = finalStatus[0].playerName2;
+    }
+
+    io.to(usrRoom).emit("quiz result", {
+      round: finalStatus[0].round,
+      winner: winner,
       playerNames: [finalStatus[0].playerName1, finalStatus[0].playerName2],
       playerScore: [finalStatus[0].player1Score, finalStatus[0].player2Score],
     });
@@ -343,12 +357,15 @@ io.on("connection", (socket) => {
       nextContentKey = finalStatus[0].round - 1;
     }
 
+    console.log("NEXT CONTENT KEY:", nextContentKey);
+
     // let contentKey = answers.round++;
 
     if (finalStatus[0].round < 5) {
-      let getCurrentAnswerNr = answers.round - 1;
+      let getCurrentAnswerNr = finalStatus[0].round - 1;
+      // let getCurrentAnswerNr = answers.round - 1;
       console.log("Answer nr:", getCurrentAnswerNr);
-      let correctAnswer = triviaDB[getCurrentAnswerNr].correct_answer;
+      correctAnswer = triviaDB[getCurrentAnswerNr].correct_answer;
 
       if (firstAnswer) {
         if (answers.answer == correctAnswer) {
@@ -397,6 +414,50 @@ io.on("connection", (socket) => {
       console.log(
         "FINISH =========================================================="
       );
+
+      correctAnswer = triviaDB[4].correct_answer;
+
+      if (answers.answer == correctAnswer) {
+        // If answer is correct
+        console.log("Right answer!");
+        firstAnswer = 0;
+        // If the player is player 1
+        if (answers.username == finalStatus[0].playerName1) {
+          // Add a point
+          finalStatus[0].player1Score++;
+          console.log("Player 1:", finalStatus);
+          // finalStatus[0].round++;
+          console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+          showResults();
+        } else {
+          // Else player is player 2 & add a point
+          finalStatus[0].player2Score++;
+          console.log("Player 2:", finalStatus);
+          // finalStatus[0].round++;
+          console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+          showResults();
+        }
+      } else {
+        // If answer is wrong
+        console.log("Wrong answer!");
+        firstAnswer = 0;
+        // If the player is player 1
+        if (answers.username == finalStatus[0].playerName1) {
+          // Add a point to player 2
+          finalStatus[0].player2Score++;
+          console.log("Player 1:", finalStatus);
+          // finalStatus[0].round++;
+          console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+          showResults();
+        } else {
+          // Else player is player 2 & add a point to player 1
+          finalStatus[0].player1Score++;
+          console.log("Player 2:", finalStatus);
+          // finalStatus[0].round++;
+          console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+          showResults();
+        }
+      }
     }
   });
 
