@@ -15,6 +15,16 @@ const api_key = process.env.API_KEY;
 let firstAnswer = 1;
 let finalStatus = [];
 
+let question = "";
+let correct_answer = "";
+let answers = [];
+
+let usrRoom = "";
+let usrId = "";
+let usrName = "";
+
+let nextContentKey = "";
+
 let store = new MemoryStore({ checkPeriod: 3600000 });
 
 app.use(
@@ -129,9 +139,12 @@ io.on("connection", (socket) => {
     console.log("USERNAME:", userIn[0].username);
 
     if (userIn[0].username.length > 0) {
-      let usrRoom = userIn[0].room;
-      let usrId = userIn[0].userId;
-      let usrName = userIn[0].username;
+      usrRoom = userIn[0].room;
+      usrId = userIn[0].userId;
+      usrName = userIn[0].username;
+      // let usrRoom = userIn[0].room;
+      // let usrId = userIn[0].userId;
+      // let usrName = userIn[0].username;
 
       console.log("Room found 1:", usrRoom);
       socket.join(usrRoom);
@@ -154,7 +167,7 @@ io.on("connection", (socket) => {
 
       //  als database niet leeg is
       // check aan de hand van room name
-      // of er een gamestatus set beschikbaar is dmv van filter & .length
+      // of er een gamestatus set beschikbaar is dmv van filter & .length van de room
       // nee? herhaal stap: 1.
       // ja? Je bent player 2.
       // voer stap 1 uit voor player 2:
@@ -251,9 +264,9 @@ io.on("connection", (socket) => {
       
       */
 
-      let question = "";
-      let correct_answer = "";
-      let answers = [];
+      // let question = "";
+      // let correct_answer = "";
+      // let answers = [];
 
       // console.log("DB INHOUD:", triviaDB);
       if (gameCONTENT.quizContent == "start" && triviaDB.length > 0) {
@@ -288,51 +301,102 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.client.checkman = 1;
   // let firstAnswer = 1;
+
+  function nextQuestion(contentKey) {
+    console.log(
+      "NEXT =========================================================="
+    );
+    // if (contentKey != 0) {
+    //   contentKey++;
+    // }
+    // form answer options
+    console.log("DE KEY", contentKey);
+    answers = triviaDB[contentKey].incorrect_answers;
+    answers.pop();
+    answers.push(triviaDB[contentKey].correct_answer);
+
+    console.log("ROUND IN NEXT:", finalStatus[0].round);
+    // console.log("DE KEY", contentKey);
+    firstAnswer = 1;
+    io.to(usrRoom).emit("quiz content", {
+      round: finalStatus[0].round,
+      question: htmlContent.decode(triviaDB[contentKey].question),
+      answers: answers,
+      username: usrName,
+      playerNames: [finalStatus[0].playerName1, finalStatus[0].playerName2],
+      playerScore: [finalStatus[0].player1Score, finalStatus[0].player2Score],
+    });
+  }
 
   socket.on("send answer", (answers) => {
     // console.log("User:", answers.username);
-    // console.log("Antwoord:", answers.answer);
-    // console.log("Round:", answers.round);
+    console.log(
+      "IN SEND ANSWER ========================================================== round:",
+      finalStatus[0].round
+    );
+    console.log("Round:", finalStatus[0].round);
 
-    let getCurrentAnswerNr = answers.round - 1;
-    // console.log("Answer nr:", getCurrentAnswerNr);
-    let correctAnswer = triviaDB[getCurrentAnswerNr].correct_answer;
+    if (answers.round === 1) {
+      nextContentKey = finalStatus[0].round;
+    } else {
+      nextContentKey = finalStatus[0].round - 1;
+    }
 
-    // console.log("GAMESETDB!!!:", finalStatus[0].playerName1);
-    // console.log("GAMESETDB!!!:", finalStatus[0].playerName2);
+    // let contentKey = answers.round++;
 
-    if (firstAnswer) {
-      if (answers.answer == correctAnswer) {
-        // If answer is correct
-        console.log("Right answer!");
-        firstAnswer = 0;
-        // If the player is player 1
-        if (answers.username == finalStatus[0].playerName1) {
-          // Add a point
-          finalStatus[0].player1Score++;
-          console.log("Player 1:", finalStatus);
+    if (finalStatus[0].round < 5) {
+      let getCurrentAnswerNr = answers.round - 1;
+      console.log("Answer nr:", getCurrentAnswerNr);
+      let correctAnswer = triviaDB[getCurrentAnswerNr].correct_answer;
+
+      if (firstAnswer) {
+        if (answers.answer == correctAnswer) {
+          // If answer is correct
+          console.log("Right answer!");
+          firstAnswer = 0;
+          // If the player is player 1
+          if (answers.username == finalStatus[0].playerName1) {
+            // Add a point
+            finalStatus[0].player1Score++;
+            console.log("Player 1:", finalStatus);
+            finalStatus[0].round++;
+            console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+            nextQuestion(nextContentKey);
+          } else {
+            // Else player is player 2 & add a point
+            finalStatus[0].player2Score++;
+            console.log("Player 2:", finalStatus);
+            finalStatus[0].round++;
+            console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+            nextQuestion(nextContentKey);
+          }
         } else {
-          // Else player is player 2 & add a point
-          finalStatus[0].player2Score++;
-          console.log("Player 2:", finalStatus);
-        }
-      } else {
-        // If answer is wrong
-        console.log("Wrong answer!");
-        firstAnswer = 0;
-        // If the player is player 1
-        if (answers.username == finalStatus[0].playerName1) {
-          // Add a point to player 2
-          finalStatus[0].player2Score++;
-          console.log("Player 1:", finalStatus);
-        } else {
-          // Else player is player 2 & add a point to player 1
-          finalStatus[0].player1Score++;
-          console.log("Player 2:", finalStatus);
+          // If answer is wrong
+          console.log("Wrong answer!");
+          firstAnswer = 0;
+          // If the player is player 1
+          if (answers.username == finalStatus[0].playerName1) {
+            // Add a point to player 2
+            finalStatus[0].player2Score++;
+            console.log("Player 1:", finalStatus);
+            finalStatus[0].round++;
+            console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+            nextQuestion(nextContentKey);
+          } else {
+            // Else player is player 2 & add a point to player 1
+            finalStatus[0].player1Score++;
+            console.log("Player 2:", finalStatus);
+            finalStatus[0].round++;
+            console.log("ROUND IN RECEIVE ANS:", finalStatus[0].round);
+            nextQuestion(nextContentKey);
+          }
         }
       }
+    } else {
+      console.log(
+        "FINISH =========================================================="
+      );
     }
   });
 
