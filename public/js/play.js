@@ -10,6 +10,7 @@ let messages = document.querySelector("#messages"),
   buttonC = document.querySelector("#sendC");
 
 let playerNm = "";
+let round = "";
 
 // SessionId element
 sessEl = document.querySelector("#sessid").value;
@@ -41,17 +42,23 @@ socket.on("quiz content", (quiz) => {
   if (elLeadB.innerHTML != "") {
     elLeadB.innerHTML = "";
 
-    quiz.playerNames.forEach((player) => {
+    quiz.playerNames.forEach((player, i) => {
       console.log("players:", player);
       if (player != "") {
-        elLeadB.insertAdjacentHTML("beforeend", `<p>${player}</p>`);
+        elLeadB.insertAdjacentHTML(
+          "beforeend",
+          `<p>${player} ${quiz.playerScore[i]}</p>`
+        );
       }
     });
   } else {
-    quiz.playerNames.forEach((player) => {
+    quiz.playerNames.forEach((player, i) => {
       console.log("players:", player);
       if (player != "") {
-        elLeadB.insertAdjacentHTML("beforeend", `<p>${player}</p>`);
+        elLeadB.insertAdjacentHTML(
+          "beforeend",
+          `<p>${player} ${quiz.playerScore[i]}</p>`
+        );
       }
     });
   }
@@ -109,6 +116,7 @@ socket.on("quiz content", (quiz) => {
 
 socket.on("profile", (userprofile) => {
   playerNm = userprofile.username;
+  round = userprofile.round;
 });
 
 // On button click send to server
@@ -119,6 +127,7 @@ buttonA.addEventListener("click", () => {
   socket.emit("send answer", {
     userId: trimSess,
     username: playerNm,
+    round: round,
     answer: buttonA.value,
   });
 });
@@ -131,6 +140,7 @@ buttonB.addEventListener("click", () => {
   socket.emit("send answer", {
     userId: trimSess,
     username: playerNm,
+    round: round,
     answer: buttonB.value,
   });
 });
@@ -143,6 +153,7 @@ buttonC.addEventListener("click", () => {
   socket.emit("send answer", {
     userId: trimSess,
     username: playerNm,
+    round: round,
     answer: buttonC.value,
   });
 });

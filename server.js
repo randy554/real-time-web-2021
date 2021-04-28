@@ -12,6 +12,8 @@ const { on } = require("events");
 
 const port = process.env.PORT || 2021;
 const api_key = process.env.API_KEY;
+let firstAnswer = 1;
+let finalStatus = [];
 
 let store = new MemoryStore({ checkPeriod: 3600000 });
 
@@ -167,7 +169,7 @@ io.on("connection", (socket) => {
      
      */
 
-      let finalStatus = [];
+      // let finalStatus = [];
 
       if (gameStatus.length < 1) {
         console.log("GAME STATUS DB LEEG:", gameStatus.length);
@@ -280,14 +282,58 @@ io.on("connection", (socket) => {
 
         socket.emit("profile", {
           username: usrName,
+          round: finalStatus[0].round,
         });
       }
     }
   });
 
+  socket.client.checkman = 1;
+  // let firstAnswer = 1;
+
   socket.on("send answer", (answers) => {
-    console.log("User:", answers.username);
-    console.log("Antwoord:", answers.answer);
+    // console.log("User:", answers.username);
+    // console.log("Antwoord:", answers.answer);
+    // console.log("Round:", answers.round);
+
+    let getCurrentAnswerNr = answers.round - 1;
+    // console.log("Answer nr:", getCurrentAnswerNr);
+    let correctAnswer = triviaDB[getCurrentAnswerNr].correct_answer;
+
+    // console.log("GAMESETDB!!!:", finalStatus[0].playerName1);
+    // console.log("GAMESETDB!!!:", finalStatus[0].playerName2);
+
+    if (firstAnswer) {
+      if (answers.answer == correctAnswer) {
+        // If answer is correct
+        console.log("Right answer!");
+        firstAnswer = 0;
+        // If the player is player 1
+        if (answers.username == finalStatus[0].playerName1) {
+          // Add a point
+          finalStatus[0].player1Score++;
+          console.log("Player 1:", finalStatus);
+        } else {
+          // Else player is player 2 & add a point
+          finalStatus[0].player2Score++;
+          console.log("Player 2:", finalStatus);
+        }
+      } else {
+        // If answer is wrong
+        console.log("Wrong answer!");
+        firstAnswer = 0;
+        // If the player is player 1
+        if (answers.username == finalStatus[0].playerName1) {
+          // Add a point to player 2
+          finalStatus[0].player2Score++;
+          console.log("Player 1:", finalStatus);
+        } else {
+          // Else player is player 2 & add a point to player 1
+          finalStatus[0].player1Score++;
+          console.log("Player 2:", finalStatus);
+        }
+      }
+    }
   });
 
   // Listen for a user has disconnected event
@@ -335,7 +381,7 @@ let storeTrivia = (triviaData) => {
 
 app.get("/", (req, res) => {
   console.log("sess id server:", req.sessionID);
-  req.session.name = "blowfish";
+  // req.session.name = "blowfish";
   res.render("index", { id: req.sessionID });
 });
 
