@@ -1,5 +1,11 @@
 # QuickTriv
 
+[![image.png](https://i.postimg.cc/cLPR4c07/image.png)](https://postimg.cc/pmYhsz9y)
+
+## Omschrijving
+
+Dit is een leuke online quiz app die je samen met een vriend of collega kunt spelen. Beantwoord per ronde random vragen over verschillende onderwerpen zoals sport, politiek of geografie. Wees je tegenspeler voor, kies de juiste antwoord en win! Lees [hier](#QuickTriv (Final concept)) meer over de spelregels
+
 ## Live demo
 
 [Live](https://quicktriv.herokuapp.com/)
@@ -42,7 +48,7 @@ Na het selecteren van mijn Handster concept, ben ik verder gaan zoeken naar inte
 
 </details>
 
-### QuickTriv (Final concept)
+## QuickTriv (Final concept)
 
 Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time quiz spel. Twee spelers krijgen vijf random vragen die zij kunnen beantwoorden d.m.v. multiple choice. De persoon die als eerst het correcte antwoord geeft wint de ronde en verdient daarbij een punt. Bij een foutief antwoord gaat het punt naar de andere speler. Er worden vijf rondes gespeeld om tot een winnaar te komen.
 
