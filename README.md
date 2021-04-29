@@ -17,6 +17,7 @@ Dit is een leuke online quiz app die je samen met een vriend of collega kunt spe
 - [Installatie](#installatie)
 - [Data life cycle](#data-life-cycle)
 - [Real-time events](#real-time-events)
+- [NPM packages](#npm-packages)
 - [API](#API)
 - [Bronnen](#bronnen)
 - [Licentie](#licentie)
@@ -96,6 +97,22 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 * `server message` verstuur bericht naar alle andere mensen in de chat dat een persoon de chat heeft verlaten.
 
 -->
+
+## NPM packages
+
+
+Dit project maakt gebruik van de volgende packages:
+
+- Express
+- Socket.io
+- Express-session
+- Memorystore
+- Html-entities
+- Ejs
+- Dotenv
+- Node-fetch
+
+
 
 ## API
 
