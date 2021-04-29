@@ -4,7 +4,7 @@
 
 ## Omschrijving
 
-Dit is een leuke online quiz app die je samen met een vriend of collega kunt spelen. Beantwoord per ronde random vragen over verschillende onderwerpen zoals sport, politiek of geografie. Wees je tegenspeler voor, kies de juiste antwoord en win! Lees [hier](#Concepten) (onder het kopje QuickTriv) meer over het concept en spelregels.
+Dit is een leuke online quiz app die je samen met een vriend of collega kunt spelen. Beantwoord per ronde random vragen over verschillende onderwerpen zoals sport, politiek of geografie. Wees je tegenspeler voor, kies de juiste antwoord en win! Lees [hier](#quickTriv (Final concept)) (onder het kopje QuickTriv) meer over het concept en spelregels.
 
 ## Live demo
 
