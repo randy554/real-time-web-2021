@@ -284,10 +284,11 @@ io.on("connection", (socket) => {
         answers = triviaDB[0].incorrect_answers;
         console.log("incorrect_answers DB:", answers);
         answers.pop();
-        answers.sort();
-        console.log("After pop & sort:", answers);
+
+        console.log("After pop", answers);
         answers.push(triviaDB[0].correct_answer);
-        console.log("With correct_answer:", answers);
+        answers.sort();
+        console.log("With correct_answer & sort:", answers);
 
         console.log("Emit CONTENT NAAR ROOM");
         io.to(usrRoom).emit("quiz content", {
