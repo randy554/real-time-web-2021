@@ -337,7 +337,7 @@ io.on("connection", (socket) => {
 
     io.to(usrRoom).emit("quiz result", {
       round: finalStatus[0].round,
-      winner: winner,
+      won: winner,
       playerNames: [finalStatus[0].playerName1, finalStatus[0].playerName2],
       playerScore: [finalStatus[0].player1Score, finalStatus[0].player2Score],
     });

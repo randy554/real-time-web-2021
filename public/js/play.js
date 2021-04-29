@@ -160,11 +160,17 @@ buttonC.addEventListener("click", () => {
 
 // Present the results
 socket.on("quiz result", (result) => {
-  console.log(`After: ${result.round} rounds`);
-  console.log(`WINNER: ${result.winner}`);
-  console.log(`========= POINTS =========`);
-  console.log(`${result.playerNames[0]}:  ${result.playerScore[0]}`);
-  console.log(`${result.playerNames[1]}:  ${result.playerScore[1]}`);
+  alert(`After: ${result.round} rounds
+  WINNER: ${result.won}
+  ========= POINTS =========
+  ${result.playerNames[0]}:  ${result.playerScore[0]}
+  ${result.playerNames[1]}:  ${result.playerScore[1]}`);
+
+  // console.log(`After: ${result.round} rounds`);
+  // console.log(`WINNER: ${result.winner}`);
+  // console.log(`========= POINTS =========`);
+  // console.log(`${result.playerNames[0]}:  ${result.playerScore[0]}`);
+  // console.log(`${result.playerNames[1]}:  ${result.playerScore[1]}`);
 });
 
 // Listen from server
