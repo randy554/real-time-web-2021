@@ -11,7 +11,7 @@ const fetch = require("node-fetch");
 const { on } = require("events");
 
 const port = process.env.PORT || 2021;
-const api_key = process.env.API_KEY;
+// const api_key = process.env.API_KEY;
 let firstAnswer = 1;
 let finalStatus = [];
 
@@ -25,6 +25,13 @@ let usrName = "";
 
 let nextContentKey = "";
 let correctAnswer = "";
+
+// Store room data
+let roomDB = [];
+// Store game data
+let gameStatus = [];
+// Store trivia data
+let triviaDB = [];
 
 let store = new MemoryStore({ checkPeriod: 3600000 });
 
@@ -277,7 +284,8 @@ io.on("connection", (socket) => {
         answers = triviaDB[0].incorrect_answers;
         console.log("incorrect_answers DB:", answers);
         answers.pop();
-        console.log("After pop:", answers);
+        answers.sort();
+        console.log("After pop & sort:", answers);
         answers.push(triviaDB[0].correct_answer);
         console.log("With correct_answer:", answers);
 
@@ -312,6 +320,7 @@ io.on("connection", (socket) => {
     answers = triviaDB[contentKey].incorrect_answers;
     answers.pop();
     answers.push(triviaDB[contentKey].correct_answer);
+    answers.sort();
 
     console.log("ROUND IN NEXT:", finalStatus[0].round);
     // console.log("DE KEY", contentKey);
@@ -491,13 +500,6 @@ let getTriviaData = () => {
     console.log("1E DB: ", triviaDB);
   });
 };
-
-// Store room data
-let roomDB = [];
-// Store game data
-let gameStatus = [];
-// Store trivia data
-let triviaDB = [];
 
 // Store trivia data to DB
 let storeTrivia = (triviaData) => {
