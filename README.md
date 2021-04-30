@@ -96,7 +96,7 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 
 Final
 
-![Final DLC](https://ibb.co/L6R5zdQ)
+[![Final DLC](https://i.ibb.co/92gt9Hw/final-DLC.png)](https://ibb.co/L6R5zdQ)
 
 ## Real-time events
 
