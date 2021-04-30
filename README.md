@@ -83,8 +83,8 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 ## Data life cycle
 
 <details>
-       <summary>DLC v1</summary>
-       [![image.png](https://i.postimg.cc/SxdK9hp6/image.png)](https://postimg.cc/nXsZ8Nrr)
+       
+[![dlcv1.png](https://i.postimg.cc/SxdK9hp6/dlcv1.png)](https://postimg.cc/nXsZ8Nrr)
 </details>
 
 <details>
