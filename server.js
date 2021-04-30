@@ -320,10 +320,10 @@ io.on("connection", (socket) => {
           ],
         });
 
-        socket.emit("profile", {
-          username: usrName,
-          round: finalStatus[0].round,
-        });
+        // socket.emit("profile", {
+        //   username: usrName,
+        //   round: finalStatus[0].round,
+        // });
       }
     }
   });

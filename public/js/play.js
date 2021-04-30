@@ -33,7 +33,11 @@ socket.on("quiz content", (quiz) => {
   console.log("Question:", quiz.question);
   console.log("User:", quiz.username);
   console.log("Answers:", quiz.answers);
-  // playerNm = quiz.username;
+  // set variables
+  playerNm = quiz.username;
+  round = quiz.round;
+  console.log("SET USERNAME:", playerNm);
+  console.log("SET ROUND:", round);
 
   // show player names
   console.log("Username waarde:", elLeadB.value);
@@ -124,10 +128,10 @@ socket.on("quiz content", (quiz) => {
 });
 
 // Receive player data and assign to global variable
-socket.on("profile", (userprofile) => {
-  playerNm = userprofile.username;
-  round = userprofile.round;
-});
+// socket.on("profile", (userprofile) => {
+//   playerNm = userprofile.username;
+//   round = userprofile.round;
+// });
 
 // On button click send to server
 buttonA.addEventListener("click", () => {
