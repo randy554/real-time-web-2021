@@ -372,6 +372,7 @@ io.on("connection", (socket) => {
     // send the data to the room
     io.to(usrRoom).emit("quiz result", {
       round: finalStatus[0].round,
+      room: usrRoom,
       won: winner,
       playerNames: [finalStatus[0].playerName1, finalStatus[0].playerName2],
       playerScore: [finalStatus[0].player1Score, finalStatus[0].player2Score],
@@ -499,6 +500,34 @@ io.on("connection", (socket) => {
         }
       }
     }
+  });
+
+  // Listen for a user has disconnected event
+  socket.on("end game", (game) => {
+    console.log(" GAME ROOM:", game.room);
+    console.log(" GAME DB STATUS:", gameStatus);
+    console.log(" ROOM DB STATUS:", roomDB);
+
+    roomDB.forEach((findRoom, index, db) => {
+      if (findRoom.room == game.room) {
+        console.log("binnen R:", findRoom);
+        console.log("type GS:", typeof findRoom);
+        db.splice(index, 1);
+        delete findRoom;
+      }
+    });
+
+    gameStatus.forEach((findRoom, index, db) => {
+      if (findRoom.room == game.room) {
+        console.log("binnen GS:", findRoom);
+        console.log("type GS:", typeof findRoom.room);
+        db.splice(index, 1);
+        delete findRoom;
+      }
+    });
+
+    console.log(" GAME DB STATUS NOW:", gameStatus);
+    console.log(" ROOM DB STATUS NOW:", roomDB);
   });
 
   // Listen for a user has disconnected event

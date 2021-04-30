@@ -11,6 +11,7 @@ let messages = document.querySelector("#messages"),
 
 let playerNm = "";
 let round = "";
+let room = "";
 
 // SessionId element
 sessEl = document.querySelector("#sessid").value;
@@ -180,6 +181,12 @@ socket.on("quiz result", (result) => {
   ${result.playerNames[0]}:  ${result.playerScore[0]}
   ${result.playerNames[1]}:  ${result.playerScore[1]}`);
 
+  // socket.emit("end game", {
+  //   room: result.room,
+  // });
+
+  endgame(result.room);
+
   window.location = "/";
 });
 
@@ -207,3 +214,9 @@ socket.on("enter room", (message) => {
     "color: white; background-color: red; font-weight: bold;"
   );
 });
+
+function endgame(userRoom) {
+  socket.emit("end game", {
+    room: userRoom,
+  });
+}
