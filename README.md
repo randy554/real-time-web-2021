@@ -96,21 +96,19 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 
 Final
 
-[![Final DLC](https://i.ibb.co/92gt9Hw/final-DLC.png)](https://ibb.co/L6R5zdQ)
+[![Final-DLC.png](https://i.postimg.cc/4yL3RVbF/Final-DLC.png)](https://postimg.cc/xNmQKkZK)
 
 ## Real-time events
 
-<!--
-#### Client
-* `chat message` verstuur een normale bericht naar andere mensen in de chat.
-* `no input` verstuur een melding naar de server dat je een lege formulier hebt gesubmit.
-*
-* `Join room` verstuur een melding naar de server dat je een lege formulier hebt gesubmit.
 
-#### Server
-* `server message` verstuur bericht naar alle andere mensen in de chat dat een persoon de chat heeft verlaten.
+* `join room` Controleert of er nog ruimte is voor een speler in de room, voegt speler aan room DB toe.
+* `socket.join` Een speler wordt toegevoegd aan room.
+* `enter room` Redirect speler naar pagina als er ruimte is zo niet geeft bericht door aan gebruiker.
+* `quiz content` Pakt juist data voor speler en verstuurt deze naar de client. Kent ook de juiste punt toe aan speler.
+* `send answer` Verstruurt antwoordkeuze van speler.
+* `quiz result` Maakt opsomming van het eindresultaat van spel en verstuurt deze naar de spelers.
+* `end game` Speler geeft aan dat zij het spel verlaten. Hiermee wordt vervolgends hun data in de db geleegd.
 
--->
 
 ## NPM packages
 
