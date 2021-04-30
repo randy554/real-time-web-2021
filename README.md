@@ -94,7 +94,7 @@ Mijn uiteindelijke concept wordt hiermee QuickTriv. Een mulit-player real-time q
 <summary>DLC v2</summary>
 </details>
 
-Final
+Final DLC
 
 [![Final-DLC.png](https://i.postimg.cc/4yL3RVbF/Final-DLC.png)](https://postimg.cc/xNmQKkZK)
 
