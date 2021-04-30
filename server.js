@@ -71,12 +71,14 @@ io.on("connection", (socket) => {
     // Assign username
     newUserName = data.userName;
 
+    // Is room name already in DB
     let room_count = roomDB.filter((game) => {
       if (game.room == data.room) {
         return game.room;
       }
     });
-    console.log(room_count);
+
+    console.log(`${data.room} has: ${room_count} in roomDB`);
     if (room_count.length == 0) {
       console.log("Enter room 1st");
 
@@ -135,6 +137,7 @@ io.on("connection", (socket) => {
 
     console.log("ROOM:", roomDB);
 
+    // Find user in game room with sessionID
     let userIn = roomDB.filter((user) => {
       if (gameCONTENT.userId == user.userId) {
         return user;
@@ -146,6 +149,8 @@ io.on("connection", (socket) => {
     console.log("USER OBJECT:", userIn);
     console.log("USERNAME:", userIn[0].username);
 
+    // If username in room exist
+    // assign db values to variables
     if (userIn[0].username.length > 0) {
       usrRoom = userIn[0].room;
       usrId = userIn[0].userId;
@@ -192,6 +197,8 @@ io.on("connection", (socket) => {
 
       // let finalStatus = [];
 
+      // If gameStatus db is empty
+      // assign player 1 data to Status set
       if (gameStatus.length < 1) {
         console.log("GAME STATUS DB LEEG:", gameStatus.length);
         gameStatus.push({
@@ -209,7 +216,8 @@ io.on("connection", (socket) => {
           }
         });
       } else {
-        // check if user room exist in db
+        // Else gameStatus set exist
+        // Use room name to get right set
         let theRoom = gameStatus.filter((room) => {
           if (usrRoom == room.room) {
             return room;
@@ -217,8 +225,14 @@ io.on("connection", (socket) => {
         });
 
         if (theRoom.length < 1) {
-          console.log("GAME STATUS ROOM LEEG:", gameStatus.length);
+          console.log(
+            "======================== WATTTTTTTT ========================"
+          );
+          console.log("GAME STATUS SET LEEG:", gameStatus.length);
           console.log("GAME ROOM STATUS OBJECT:", gameStatus);
+          console.log(
+            "======================== WATTTTTTTT ========================"
+          );
           gameStatus.push({
             room: usrRoom,
             round: 1,
@@ -228,6 +242,7 @@ io.on("connection", (socket) => {
             player2Score: 0,
           });
 
+          // Assign current gameStatus object set to variable
           finalStatus = gameStatus.map((status) => {
             if (status.room == usrRoom) {
               return status;
@@ -243,6 +258,8 @@ io.on("connection", (socket) => {
           //   }
           // });
 
+          // Assign player 2 username
+          // & return gameStatus object
           finalStatus = gameStatus.map((status) => {
             if (status.room == usrRoom) {
               status.playerName2 = usrName;
@@ -311,21 +328,26 @@ io.on("connection", (socket) => {
     }
   });
 
-  // let firstAnswer = 1;
-
   function nextQuestion(contentKey) {
     console.log(
       "NEXT =========================================================="
     );
     console.log("DE KEY", contentKey);
+    // Get the incorrect answers from TriviaDB
     answers = triviaDB[contentKey].incorrect_answers;
+    // Remove the last element of the list
     answers.pop();
+    // Add correct answer to the list
     answers.push(triviaDB[contentKey].correct_answer);
+    // Sort list alphabetically in ascending order
     answers.sort();
 
     console.log("ROUND IN NEXT:", finalStatus[0].round);
     // console.log("DE KEY", contentKey);
+    // activate fist answer variable
     firstAnswer = 1;
+
+    // send next content to
     io.to(usrRoom).emit("quiz content", {
       round: finalStatus[0].round,
       question: htmlContent.decode(triviaDB[contentKey].question),
@@ -336,15 +358,18 @@ io.on("connection", (socket) => {
     });
   }
 
+  // send end game results to the players
   function showResults() {
     let winner = "";
 
+    // Determine who is the winner
     if (finalStatus[0].player1Score > finalStatus[0].player2Score) {
       winner = finalStatus[0].playerNames;
     } else {
       winner = finalStatus[0].playerName2;
     }
 
+    // send the data to the room
     io.to(usrRoom).emit("quiz result", {
       round: finalStatus[0].round,
       won: winner,
@@ -361,6 +386,7 @@ io.on("connection", (socket) => {
     );
     console.log("Round:", finalStatus[0].round);
 
+    // Determine content key based on current round number
     if (answers.round === 1) {
       nextContentKey = finalStatus[0].round;
     } else {
@@ -371,16 +397,19 @@ io.on("connection", (socket) => {
 
     // let contentKey = answers.round++;
 
+    // For the first 4 rounds of the game
     if (finalStatus[0].round < 5) {
+      // Get the correct answer from Trivia DB based on round nr
       let getCurrentAnswerNr = finalStatus[0].round - 1;
-      // let getCurrentAnswerNr = answers.round - 1;
       console.log("Answer nr:", getCurrentAnswerNr);
       correctAnswer = triviaDB[getCurrentAnswerNr].correct_answer;
 
+      // only accept the first answer from any player
       if (firstAnswer) {
+        // If given answer is correct
         if (answers.answer == correctAnswer) {
-          // If answer is correct
           console.log("Right answer!");
+          // disable fist answer variable
           firstAnswer = 0;
           // If the player is player 1
           if (answers.username == finalStatus[0].playerName1) {
@@ -399,7 +428,7 @@ io.on("connection", (socket) => {
             nextQuestion(nextContentKey);
           }
         } else {
-          // If answer is wrong
+          // If given answer is wrong
           console.log("Wrong answer!");
           firstAnswer = 0;
           // If the player is player 1
@@ -425,10 +454,11 @@ io.on("connection", (socket) => {
         "FINISH =========================================================="
       );
 
+      // Get the correct answer from Trivia DB based on round nr
       correctAnswer = triviaDB[4].correct_answer;
 
       if (answers.answer == correctAnswer) {
-        // If answer is correct
+        // If given answer is correct
         console.log("Right answer!");
         firstAnswer = 0;
         // If the player is player 1
@@ -509,7 +539,6 @@ let storeTrivia = (triviaData) => {
 
 app.get("/", (req, res) => {
   console.log("sess id server:", req.sessionID);
-  // req.session.name = "blowfish";
   res.render("index", { id: req.sessionID });
 });
 

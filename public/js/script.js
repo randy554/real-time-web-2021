@@ -16,11 +16,6 @@ console.log("session id client:", sessEl);
 button.addEventListener("click", () => {
   // If username & message fields are filled then send to chat
   if (userName.value !== "" && userMessage.value !== "") {
-    // socket.emit("join room", {
-    //   id: socket.id,
-    //   userName: userName.value,
-    //   room: userMessage.value,
-    // });
     socket.emit("join room", {
       id: trimSess,
       userName: userName.value,

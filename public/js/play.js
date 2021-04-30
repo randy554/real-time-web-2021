@@ -39,6 +39,9 @@ socket.on("quiz content", (quiz) => {
   console.log("Username waarde:", elLeadB.value);
   // elLeadB.insertAdjacentHTML("beforeend", `<p>${quiz.username}</p>`);
 
+  // If leaderboard already has content
+  // then erase old content before adding new
+  // else just add the content
   if (elLeadB.innerHTML != "") {
     elLeadB.innerHTML = "";
 
@@ -63,9 +66,15 @@ socket.on("quiz content", (quiz) => {
     });
   }
 
+  // Add/update round data to the round section
   elRound.innerHTML = `<p>Round: ${quiz.round}</p>`;
+  // Add or update title on page
   title.innerText = quiz.question;
 
+  // If answer options section already has content
+  // then erase old content before adding new
+  // else just add the content
+  // Prefix answer options with A, B, or C
   if (answerOptions.innerHTML != "") {
     console.log("answer options 1:", answerOptions.innerHTML);
     answerOptions.innerHTML = "";
@@ -114,6 +123,7 @@ socket.on("quiz content", (quiz) => {
   buttonC.value = quiz.answers[2];
 });
 
+// Receive player data and assign to global variable
 socket.on("profile", (userprofile) => {
   playerNm = userprofile.username;
   round = userprofile.round;
