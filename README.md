@@ -113,6 +113,83 @@ Final DLC
 * `quiz result` Maakt opsomming van het eindresultaat van spel en verstuurt deze naar de spelers.
 * `end game` Speler geeft aan dat zij het spel verlaten. Hiermee wordt vervolgends hun data in de db geleegd.
 
+## Eigen cheat sheet
+
+In het begin van het vak had ik voor mijzelf een eigen cheat sheet gemaakt. Hierdoor heb ik de meest voorkomende events sneller onder de knie kunnen krijgen. 
+
+```javascript
+/* ------ My socket.io cheat sheet ------ */
+
+// ******* SERVER SIDE ******* //
+
+/* io.on('connection')
+ |------------------------------------------------------
+ | Establishes a socket connection with clients. 
+ | 'connection' arg is a reserved keyword.
+ |------------------------------------------------------
+*/
+
+/* io.emit('exampleKeyWord')
+ |------------------------------------------------------
+ | Sends a socket message to all connected clients
+ | 
+ |------------------------------------------------------
+*/
+
+/* socket.on('disconnect')
+ |------------------------------------------------------
+ | Listens to clients leaving/loosing connection to
+ | the socket.
+ |'disconnect' arg is a reserved keyword.
+ |------------------------------------------------------
+*/
+
+/* socket.on('exampleKeyWord')
+ |------------------------------------------------------
+ | Listens to socket events with e.g. the 
+ | 'exampleKeyWord' arg.
+ |------------------------------------------------------
+*/
+
+/* socket.emit('exampleKeyWord')
+ |------------------------------------------------------
+ | Sends a socket message to a specific connected  
+ | client.
+ |------------------------------------------------------
+*/
+
+/* socket.broadcast.emit('exampleEvent', 'Hello all!')
+ |------------------------------------------------------
+ | Sends a socket message to a all clients listening on  
+ | the 'exampleEvent' event, except the sender.
+ |------------------------------------------------------
+*/
+
+/* socket.join('exampleRoom')
+ |------------------------------------------------------
+ | Join a client to the 'exampleRoom' room.  
+ | 
+ |------------------------------------------------------
+*/
+
+/* socket.to('exampleRoom').emit('Hello people in room')
+ |------------------------------------------------------
+ | Say hello to all the clients in the 'exampleRoom'  
+ | room.
+ |------------------------------------------------------
+*/
+```
+
+## Session
+
+Voor mijn app ik voor het eerst gebruik gemaakt van sessions in Node. Dit heb ik door middel van de express-session en memorystor packages kunnen doen.
+Ik had deze namelijk nodig voor het onthouden van de gebruiker na het redirecten naar een andere pagina.
+
+[![session.png](https://i.postimg.cc/nhHjBBns/session.png)](https://postimg.cc/jLFSrWwK)
+
+Bij een request wordt er gekeken in de middelware of er een wijziging is in de session object, als dat
+het geval is dan wordt de huidige session_id die is gegenereerd bij het doen van de request,
+opgeslagen in de geheugen (memorystore) en wordt er een cookie gemaakt bij de client.
 
 ## NPM packages
 
