@@ -84,10 +84,6 @@ io.on("connection", (socket) => {
 
       // Join user to room
       socket.join(data.room);
-      // Announce arrival of new user to other user in room
-      // socket
-      //   .to(data.room)
-      //   .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
       // Get & store trivia data
       getTriviaData().then(() => {
         socket.emit("enter room", {
@@ -106,10 +102,8 @@ io.on("connection", (socket) => {
 
       // Join user to room
       socket.join(data.room);
-      // Announce arrival of new user to other user in room
-      // socket
-      //   .to(data.room)
-      //   .emit("enter room", `${data.userName} is binnen in: ${data.room}`);
+
+      // redirect client to page /play
       socket.emit("enter room", {
         redirect: true,
         message: "",
@@ -132,9 +126,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("quiz content", (gameCONTENT) => {
-    console.log("GameCONTENT:", gameCONTENT.quizContent);
-    console.log("User id:", gameCONTENT.userId);
-
     console.log("ROOM:", roomDB);
 
     // Find user in game room with sessionID
@@ -155,47 +146,9 @@ io.on("connection", (socket) => {
       usrRoom = userIn[0].room;
       usrId = userIn[0].userId;
       usrName = userIn[0].username;
-      // let usrRoom = userIn[0].room;
-      // let usrId = userIn[0].userId;
-      // let usrName = userIn[0].username;
 
       console.log("Room found 1:", usrRoom);
       socket.join(usrRoom);
-
-      // 1. --------------------------
-
-      // is gameStatus database leeg?
-      //  dan ben je de eerste speler
-      /* vul dan jouw:
-      
-      , - room(ID), 
-      - ronde,
-      - naam
-      - score 
-      
-      in een gamestatus set
-      
-      */
-      // 2. --------------------------
-
-      //  als database niet leeg is
-      // check aan de hand van room name
-      // of er een gamestatus set beschikbaar is dmv van filter & .length van de room
-      // nee? herhaal stap: 1.
-      // ja? Je bent player 2.
-      // voer stap 1 uit voor player 2:
-      /* vul dan jouw:
-     
-     , - room(ID), 
-     - ronde,
-     - naam
-     - score 
-     
-     in een gamestatus set
-     
-     */
-
-      // let finalStatus = [];
 
       // If gameStatus db is empty
       // assign player 1 data to Status set
@@ -210,6 +163,7 @@ io.on("connection", (socket) => {
           player2Score: 0,
         });
 
+        // assign current status set to variable
         finalStatus = gameStatus.map((status) => {
           if (status.room == usrRoom) {
             return status;
@@ -249,14 +203,7 @@ io.on("connection", (socket) => {
             }
           });
         } else {
-          console.log("GAME STATUS ROOM BESTAAT:", theRoom.length);
           console.log("GAME ROOM STATUS OBJECT:", theRoom);
-
-          // gameStatus.forEach((status) => {
-          //   if (status.room == usrRoom) {
-          //     status.playerName2 = usrName;
-          //   }
-          // });
 
           // Assign player 2 username
           // & return gameStatus object
@@ -270,7 +217,6 @@ io.on("connection", (socket) => {
           console.log("FINAL GAME ROOM STATUS:", finalStatus);
         }
       }
-      console.log("ERBUITEN? :", finalStatus);
 
       console.log("FINAL GAME DB STATUS:", gameStatus);
 
@@ -278,22 +224,6 @@ io.on("connection", (socket) => {
 
       // Haal aan de hand van de room de gamestatus van
       // speler 1 & 2 naarvoren:
-      /*
-
-      , - room(ID), 
-      - ronde,
-      - playerNaam1
-      - playerScore1 
-      - playerNaam2
-      - playerScore2 
-      
-      */
-
-      // let question = "";
-      // let correct_answer = "";
-      // let answers = [];
-
-      // console.log("DB INHOUD:", triviaDB);
       if (gameCONTENT.quizContent == "start" && triviaDB.length > 0) {
         question = htmlContent.decode(triviaDB[0].question);
         correct_answer = triviaDB[0].correct_answer;
@@ -319,11 +249,6 @@ io.on("connection", (socket) => {
             finalStatus[0].player2Score,
           ],
         });
-
-        // socket.emit("profile", {
-        //   username: usrName,
-        //   round: finalStatus[0].round,
-        // });
       }
     }
   });
@@ -380,23 +305,12 @@ io.on("connection", (socket) => {
   }
 
   socket.on("send answer", (answers) => {
-    // console.log("User:", answers.username);
-    console.log(
-      "IN SEND ANSWER ========================================================== round:",
-      finalStatus[0].round
-    );
-    console.log("Round:", finalStatus[0].round);
-
     // Determine content key based on current round number
     if (answers.round === 1) {
       nextContentKey = finalStatus[0].round;
     } else {
       nextContentKey = finalStatus[0].round - 1;
     }
-
-    console.log("NEXT CONTENT KEY:", nextContentKey);
-
-    // let contentKey = answers.round++;
 
     // For the first 4 rounds of the game
     if (finalStatus[0].round < 5) {
@@ -451,10 +365,6 @@ io.on("connection", (socket) => {
         }
       }
     } else {
-      console.log(
-        "FINISH =========================================================="
-      );
-
       // Get the correct answer from Trivia DB based on round nr
       correctAnswer = triviaDB[4].correct_answer;
 
@@ -504,25 +414,15 @@ io.on("connection", (socket) => {
 
   // Listen for a user has disconnected event
   socket.on("end game", (game) => {
-    console.log(" GAME ROOM:", game.room);
-    console.log(" GAME DB STATUS:", gameStatus);
-    console.log(" ROOM DB STATUS:", roomDB);
-
     roomDB.forEach((findRoom, index, db) => {
       if (findRoom.room == game.room) {
-        console.log("binnen R:", findRoom);
-        console.log("type GS:", typeof findRoom);
         db.splice(index, 1);
-        delete findRoom;
       }
     });
 
     gameStatus.forEach((findRoom, index, db) => {
       if (findRoom.room == game.room) {
-        console.log("binnen GS:", findRoom);
-        console.log("type GS:", typeof findRoom.room);
         db.splice(index, 1);
-        delete findRoom;
       }
     });
 

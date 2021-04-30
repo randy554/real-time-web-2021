@@ -128,12 +128,6 @@ socket.on("quiz content", (quiz) => {
   buttonC.value = quiz.answers[2];
 });
 
-// Receive player data and assign to global variable
-// socket.on("profile", (userprofile) => {
-//   playerNm = userprofile.username;
-//   round = userprofile.round;
-// });
-
 // On button click send to server
 buttonA.addEventListener("click", () => {
   console.log(
