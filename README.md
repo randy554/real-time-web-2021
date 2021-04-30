@@ -1,5 +1,9 @@
 # QuickTriv
 
+Home
+[![image.png](https://i.postimg.cc/jd2Hwh92/image.png)](https://postimg.cc/1fxnbDy1)
+Play
+
 [![image.png](https://i.postimg.cc/cLPR4c07/image.png)](https://postimg.cc/pmYhsz9y)
 
 ## Omschrijving
